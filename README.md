@@ -5,7 +5,7 @@ Deze visualisatie maakt het mogelijk voor de gebruiker een ideale verdeling te v
 Door een makkelijk en speelse visualisatie te maken van mogelijke combinaties van deze parameters, wordt het probleem rondom de AOW (het tekort aan middelen om iedereen te kunnen blijven betalen) zichtbaar en wordt de kans geboden met andere mogelijke oplossingen te komen voor dit probleem.
 
 ## de visualisatie
-![](doc/shets.jpeg)
+![](doc/schets.jpeg)
 Deze visualisatie bestaat uit 4 onderdelen die onderling gelinkt zijn. Deze 4 onderdelen worden in 1 scherm opgedeeld in 4 rechthoeken. Verder zijn er 3 sliders die het getal van de eerder genoemde parameters kan veranderen.
 
 Linksboven worden de inkomsten en uitgaven aan AOW in een lijndiagram tegen elkaar weggezet, met op de x-as jaartallen. Wanneer een parameter wordt veranderd, wijzigt ook deze grafiek. Ook kan hier een jaartal worden geselecteerd wat effect zal hebben op de getoonde informatie in de overige 3 onderdelen.
