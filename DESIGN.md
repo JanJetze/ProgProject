@@ -7,7 +7,7 @@
 
 ### drawGraph
 drawGraph(leeftijd, AOW, premie)
-  foreach jaar
-    calcRevenue(leeftijd, AOW, premie, jaar)
-    calcExpense(leeftijd, AOW, premie, jaar)
-    draw line
+* foreach jaar
+  * calcRevenue(leeftijd, AOW, premie, jaar)
+  * calcExpense(leeftijd, AOW, premie, jaar)
+  * draw line
