@@ -23,34 +23,33 @@
 
 ## functies
 ### hoofdfuncties
-- drawGraph() -> wordt aangeroepen bij wijziging van *leeftijd*, *AOW* of *premie*
-- drawPyramid() = wordt aangeroepen bij wijziging van *currentJaar*
-- drawChart() = wordt aangeroepen bij wijziging van *currentJaar*
+- drawGraph() -> wordt aangeroepen bij wijziging van *leeftijd*, *AOW* of *premie*, tekent de **Balans**
+- drawPyramid() = wordt aangeroepen bij wijziging van *currentJaar*, tekent de **Piramide**
+- drawChart() = wordt aangeroepen bij wijziging van *currentJaar*, tekent de **Contributie**
 
 ### helperfuncties
 - calcRevenue(leeftijd, AOW, premie, jaar)
 - calcExpense(leeftijd, AOW, premie, jaar)
 
-### drawGraph
+#### drawGraph
 drawGraph() <br>
 &ensp;foreach jaar <br>
 &ensp;&ensp;calcRevenue(leeftijd, AOW, premie, jaar) <br>
 &ensp;&ensp;calcExpense(leeftijd, AOW, premie, jaar) <br>
 &ensp;&ensp;draw line <br>
 
-### drawChart
+#### drawChart
 drawChart(jaar) <br>
-&ensp;calcRevenue(leeftijd, statusQuoAOW, statusQuoPremie, jaar) <br>
-&ensp;draw bar <br>
-&ensp;calcExpense(leeftijd, statusQuoAOW, statusQuoPremie, jaar) <br>
-&ensp;draw bar <br>
-&ensp;calcRevenue(statusQuoLeeftijd, AOW, statusQuoPremie, jaar) <br>
-&ensp;draw bar <br>
-&ensp;calcExpense(statusQuoLeeftijd, AOW, statusQuoPremie, jaar) <br>
-&ensp;draw bar <br>
-&ensp;calcRevenue(statusQuoLeeftijd, statusQuoAOW, premie, jaar) <br>
-&ensp;draw bar <br>
-&ensp;calcExpense(statusQuoLeeftijd, statusQuoAOW, premie, jaar) <br>
+&ensp;verschilInkomsten = calcRevenue(leeftijd, premie, jaar) - calcRevenue(statusQuoLeeftijd, premie, jaar) <br>
+&ensp;draw bar inkomstenLeeftijd <br>
+&ensp;verschilUitgaven = calcExpense(leeftijd, AOW, jaar) - calcExpense(statusQuoLeeftijdleeftijd, AOW, jaar) <br>
+&ensp;draw bar uitgavenLeeftijd <br>
+
+&ensp;verschilUitgaven = calcExpense(leeftijd, AOW, jaar) - calcExpense(leeftijd, statusQuoAOW, jaar) <br>
+&ensp;draw bar uitgavenAOW <br>
+
+&ensp;verschilInkomsten = calcRevenue(leeftijd, Premie, jaar) - calcRevenue(leeftijd, statusQuoPremie, jaar) <br>
+&ensp;draw bar inkomstenPremie <br>
 
 ## schetsen
 ### overzicht
@@ -93,7 +92,9 @@ Wanneer met de muis over een vak van een variable wordt bewogen, het vak is in d
 ![](doc/contributie.jpeg)
 Deze visualisatie laat zien waar, wanneer in de **Header** de variabelen worden aangepast, de veranderingen in **Balans** vandaan komen.
 
-**Contributie** geeft voor elke variabele uit de **Header** afzonderlijk weer of de uitgaven en de inkomsten door deze verandering stijgen en/of dalen en hoeveel deze stijging/daling is. Dit wordt berekend door, per variabele, de inkomsten/uitgaven van het AOW-stelsel met de huidig opgegeven variabelen, te verminderen met de inkomsten/uitgaven waarbij de betreffende variabele worden vervangen door zijn status quo tegenhanger.
+**Contributie** geeft voor elke variabele uit de **Header** afzonderlijk weer of de uitgaven en/of de inkomsten door deze verandering stijgen en/of dalen en hoeveel deze stijging/daling is. Dit wordt berekend door, per variabele, de inkomsten/uitgaven van het AOW-stelsel met de huidig opgegeven variabelen, te verminderen met de inkomsten/uitgaven waarbij de betreffende variabele worden vervangen door zijn status quo tegenhanger.
+
+In de schets zijn er nog 6 staven te zien, dit zullen er 4 worden; 2 onder leeftijd, 1 bij AOW en 1 bij premie. Bij een verandering van de premie zal er natuurlijk niets veranderen in de uitgaven, dit omdat de premie enkel betrekking heeft op de inkomsten. Ditzelfde, maar dan precies andersom, geldt voor het AOW-bedrag. Hier zal alleen een staaf komen die de verandering weergeeft in de uitgaven. Leeftijd is de enige variabele die zowel invloed heeft op de inkomsten als ook op de uitgaven, daarom zal deze wel twee staven krijgen in de visualisatie.
 
 De drie verschillende variabelen worden gescheiden door een stippellijn.
 
