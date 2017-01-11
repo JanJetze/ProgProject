@@ -28,8 +28,18 @@
 - drawChart() = wordt aangeroepen bij wijziging van *currentJaar*, tekent de **Contributie**
 
 ### helperfuncties
-- calcRevenue(leeftijd, AOW, premie, jaar)
-- calcExpense(leeftijd, AOW, premie, jaar)
+- calcRevenue(leeftijd, premie, jaar)
+- calcExpense(leeftijd, AOW, jaar)
+
+#### calcRevenue
+calcRevenue(leeftijd, premie, jaar)
+&ensp;werkenden = foreach in 18 tot leeftijd: + leeftijdsVerdeling[jaar][each] * werkloosheid[each]
+&ensp;revenue = werkenden * premie
+
+#### calcExpense
+calcExpense(leeftijd, AOW, jaar)
+&ensp; AOW-gerechtigden =  foreach in leeftijd tot (max leeftijd uit leeftijdsVerdeling); + leeftijdsVerdeling[jaar][each]
+&ensp; expense = AOW-gerechtigden * AOW
 
 #### drawGraph
 drawGraph() <br>
