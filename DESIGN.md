@@ -1,11 +1,11 @@
 # design
 ## data
-werkloosheid = een dict met daarin iedere afzonderlijke leeftijd van 0 tot 100 als key en het percentage werkloosheid als value
--> werkloosheid[enkeleLeeftijd] = werkloosheidPercentage
-leeftijdsVerdeling = een nested dict met daarin voor ieder jaartal weer een dict
-leeftijdsVerdeling[jaartal] = dict met daarin per leeftijd
-leeftijdsVerdeling[jaartal][totaal] = totale bevolking van dat jaartal
-leeftijdsVerdeling[jaartal][leeftijd] = aantal personen in die leeftijd
+> werkloosheid = een dict met daarin iedere afzonderlijke leeftijd van 0 tot 100 als key en het percentage werkloosheid als value
+> -> werkloosheid[enkeleLeeftijd] = werkloosheidPercentage
+> leeftijdsVerdeling = een nested dict met daarin voor ieder jaartal weer een dict
+> leeftijdsVerdeling[jaartal] = dict met daarin per leeftijd
+> leeftijdsVerdeling[jaartal][totaal] = totale bevolking van dat jaartal
+> leeftijdsVerdeling[jaartal][leeftijd] = aantal personen in die leeftijd
 
 ## variabelen
 ### globaal
