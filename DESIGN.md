@@ -1,25 +1,25 @@
 # design
 ## data
-> werkloosheid = een dict met daarin iedere afzonderlijke leeftijd van 0 tot 100 als key en het percentage werkloosheid als value
-> -> werkloosheid[enkeleLeeftijd] = werkloosheidPercentage
-> leeftijdsVerdeling = een nested dict met daarin voor ieder jaartal weer een dict
-> leeftijdsVerdeling[jaartal] = dict met daarin per leeftijd
-> leeftijdsVerdeling[jaartal][totaal] = totale bevolking van dat jaartal
-> leeftijdsVerdeling[jaartal][leeftijd] = aantal personen in die leeftijd
+werkloosheid = een dict met daarin iedere afzonderlijke leeftijd van 0 tot 100 als key en het percentage werkloosheid als value <br>
+-> werkloosheid[enkeleLeeftijd] = werkloosheidPercentage <br>
+leeftijdsVerdeling = een nested dict met daarin voor ieder jaartal weer een dict <br>
+leeftijdsVerdeling[jaartal] = dict met daarin per leeftijd <br>
+leeftijdsVerdeling[jaartal][totaal] = totale bevolking van dat jaartal <br>
+leeftijdsVerdeling[jaartal][leeftijd] = aantal personen in die leeftijd <br>
 
 ## variabelen
 ### globaal
-statusQuoLeeftijd = de huidige AOW leeftijd
-statusQuoAOW = het huidige AOW bedrag
-statusQuoPremie = de huidige premie
+statusQuoLeeftijd = de huidige AOW leeftijd <br>
+statusQuoAOW = het huidige AOW bedrag <br>
+statusQuoPremie = de huidige premie <br>
 
 ### lokaal
-modelVariabelen = [*leeftijd*, *AOW*, *premie*]
-modelVariabelenStatusQuo = [*statusQuoLeeftijd*, *statusQuoAOW*, *statusQuoPremie*]
-leeftijd = verandert bij invoer van gebruiker
-AOW = verandert bij invoer van gebruiker
-premie = verandert bij invoer van gebruiker
-currentJaar = verandert bij klik in scherm 1
+modelVariabelen = [*leeftijd*, *AOW*, *premie*] <br>
+modelVariabelenStatusQuo = [*statusQuoLeeftijd*, *statusQuoAOW*, *statusQuoPremie*] <br>
+leeftijd = verandert bij invoer van gebruiker <br>
+AOW = verandert bij invoer van gebruiker <br>
+premie = verandert bij invoer van gebruiker <br>
+currentJaar = verandert bij klik in scherm 1 <br>
 
 ## functies
 ### hoofdfuncties
