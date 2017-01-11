@@ -32,22 +32,22 @@
 - calcExpense(leeftijd, AOW, premie, jaar)
 
 ### drawGraph
-drawGraph()
-&ensp;foreach jaar
-&ensp;&ensp;calcRevenue(leeftijd, AOW, premie, jaar)
-&ensp;&ensp;calcExpense(leeftijd, AOW, premie, jaar)
-&ensp;&ensp;draw line
+drawGraph() <br>
+&ensp;foreach jaar <br>
+&ensp;&ensp;calcRevenue(leeftijd, AOW, premie, jaar) <br>
+&ensp;&ensp;calcExpense(leeftijd, AOW, premie, jaar) <br>
+&ensp;&ensp;draw line <br>
 
 ### drawChart
-drawChart(jaar)  
-&ensp;calcRevenue(leeftijd, statusQuoAOW, statusQuoPremie, jaar)
-&ensp;draw bar
-&ensp;calcExpense(leeftijd, statusQuoAOW, statusQuoPremie, jaar)
-&ensp;draw bar
-&ensp;calcRevenue(statusQuoLeeftijd, AOW, statusQuoPremie, jaar)
-&ensp;draw bar
-&ensp;calcExpense(statusQuoLeeftijd, AOW, statusQuoPremie, jaar)
-&ensp;draw bar
-&ensp;calcRevenue(statusQuoLeeftijd, statusQuoAOW, premie, jaar)
-&ensp;draw bar
-&ensp;calcExpense(statusQuoLeeftijd, statusQuoAOW, premie, jaar)
+drawChart(jaar) <br>
+&ensp;calcRevenue(leeftijd, statusQuoAOW, statusQuoPremie, jaar) <br>
+&ensp;draw bar <br>
+&ensp;calcExpense(leeftijd, statusQuoAOW, statusQuoPremie, jaar) <br>
+&ensp;draw bar <br>
+&ensp;calcRevenue(statusQuoLeeftijd, AOW, statusQuoPremie, jaar) <br>
+&ensp;draw bar <br>
+&ensp;calcExpense(statusQuoLeeftijd, AOW, statusQuoPremie, jaar) <br>
+&ensp;draw bar <br>
+&ensp;calcRevenue(statusQuoLeeftijd, statusQuoAOW, premie, jaar) <br>
+&ensp;draw bar <br>
+&ensp;calcExpense(statusQuoLeeftijd, statusQuoAOW, premie, jaar) <br>
