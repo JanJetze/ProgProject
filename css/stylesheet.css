@@ -1,0 +1,49 @@
+.container{
+  border: 2px solid black;
+}
+
+#piramide, #balans {
+  display: inline-block;
+  position: relative;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 2px;
+}
+
+#balans > .line {
+  fill: none;
+  stroke-width: 5px;
+}
+
+.expenses {
+  stroke: red;
+  fill: red;
+}
+
+.revenues {
+  stroke: green;
+  fill: green;
+}
+
+.legendBox {
+  stroke: black;
+  stroke-width: 3px;
+}
+
+.vrouw {
+  fill: fuchsia;
+}
+
+.man {
+  fill: blue;
+}
+
+#contributie > .dashedLine {
+  stroke: gray;
+  stroke-width: 2px;
+  stroke-dasharray: 5px;
+}

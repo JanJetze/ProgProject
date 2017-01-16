@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <link rel='stylesheet' type='text/css' href='css/stylesheet.css'>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/queue.v1.min.js"></script>
+</head>
+<body>
+  <div id='header' class='container'>
+    <h1 id='title'>Hier komt de titel</h1>
+    <form action="">
+      <input id='leeftijdKeuze' type='number' min='50' max='99' placeholder='leeftijd' value='JanJ'>
+      <input id='bedragKeuze' type='number' min='1' max='10000' placeholder='bedrag'>
+      <input id='premieKeuze' type='number' min='100' max='100000' placeholder='premie'>
+      <input id='berekenKeuze' type='submit' value='bereken'>
+    </form>
+  </div>
+  <div id='visualisations' class='container'>
+    <div id='topvis' class='container'>
+      <svg id='balans'>
+      </svg>
+      <svg id='piramide'>
+      </svg>
+    </div>
+    <div id='bottomvis' class='container'>
+      <svg id='contributie'>
+      </svg>
+      <svg id='informatie'>
+      </svg>
+    </div>
+  </div>
+  <script src='javascript/main.js'></script>
+  <script src='javascript/functions.js'></script>
+</body>
+</html>
