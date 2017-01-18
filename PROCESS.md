@@ -24,3 +24,13 @@ alles wat op de pagina moet komen geplaatst. Titels, legenda's etc.
 Het is nu nog een zooitje, met name in main.js, met alle regels voor de legenda's etc. Deze kunnen uiteindelijk in aparte functies worden geplaatst. Voor elke visualisatie een eigen functies voor assen en aparte voor legenda's. Deze kunnen dan in een aparte file. Een main.js waar de mainloop in zit, graphs.js waarin alle graphs worden getekend, helpers.js waarin alle helperfuncties zitten zoals bijvoorbeeld de calcRevenue() en een file extra.js (of een dergelijke naam), waarin alle opmaak rondom de grafieken zit.
 
 Er is nu een prototype site. Alleen de onderlinge links zijn nog niet gemaakt. Wel kunnen de drie variabelen (leeftijd, bedrag en premie) worden veranderd. Morgen zal ik mij richten op de onderlinge links tussen grafieken.
+
+# 17 januari
+Aparte javascript file gemaakt voor alle teksten etc op de pagina. components.js bevat nu voor elke visualisatie een aantal aparte functies die voor die visualisatie de titels, legenda en de assen maken. Deze functies worden aangeroepen in main.js en vervolgens in functions.js.
+
+de visualisatie 'balans' is nu interactief met 'piramide' en 'contributie'. Als je in balans beweegt, beweegt er een lijntje mee, zodra je klikt, veranderen voor de piramide en de contributie de jaartallen.
+
+# 18 januari
+Kleine bugfixes, voornamelijk in de benaming van de assen van balans en contributie.
+
+In de piramide worden nu beide balken gehighlight wanneer de muis erover heengaat. Daarnaast wordt zowel links als rechts naast de piramide getoonde welke leeftijd het is die gehighlight is.

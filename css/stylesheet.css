@@ -7,6 +7,11 @@
   position: relative;
 }
 
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
 .axis path,
 .axis line {
   fill: none;
@@ -42,8 +47,20 @@
   fill: blue;
 }
 
+.piramideHover {
+  fill: grey;
+}
+
 #contributie > .dashedLine {
   stroke: gray;
   stroke-width: 2px;
   stroke-dasharray: 5px;
 }
+
+/*.focus {
+  display: none;
+}
+
+.crosshair {
+  stroke: grey;
+}*/
