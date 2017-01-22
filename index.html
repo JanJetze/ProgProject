@@ -3,34 +3,39 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <link rel='stylesheet' type='text/css' href='css/stylesheet.css'>
+  <link rel='stylesheet' type='text/css' href='css/bootstrap.css'>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://d3js.org/queue.v1.min.js"></script>
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.js'></script>
 </head>
 <body>
-  <div id='header' class='container'>
+  <div id='header' class='container-fluid'>
     <h1 id='title'>Hier komt de titel</h1>
-    <form action="">
-      <input id='leeftijdKeuze' type='number' min='50' max='99' placeholder='leeftijd' value='JanJ'>
-      <input id='bedragKeuze' type='number' min='1' max='10000' placeholder='bedrag'>
-      <input id='premieKeuze' type='number' min='1' max='100000' placeholder='premie'>
-      <input id='berekenKeuze' type='submit' value='bereken'>
-    </form>
+    <div class='row col-md-offset-1'>
+      <form action="">
+        <input id='leeftijdKeuze' type='number' min='50' max='99' placeholder='leeftijd'>
+        <input id='bedragKeuze' type='number' min='1' max='10000' step='0.01' placeholder='bedrag'>
+        <input id='premieKeuze' type='number' min='1' max='100000' placeholder='premie'>
+        <input id='berekenKeuze' type='submit' value='bereken'>
+      </form>
+    </div>
   </div>
-  <div id='visualisations' class='container'>
-    <div id='topvis' class='container'>
-      <svg id='balans'>
+  <div id='visualisations'>
+    <div id='topvis' class='row'>
+      <svg id='balans' class='col-md-7'>
       </svg>
-      <svg id='piramide'>
+      <svg id='piramide' class='col-md-5'>
       </svg>
     </div>
-    <div id='bottomvis' class='container'>
+    <div id='bottomvis' class='row'>
       <svg id='contributie'>
       </svg>
       <svg id='informatie'>
       </svg>
     </div>
   </div>
+  <script src='javascript/bootstrap.js'></script>
   <script src='javascript/functions.js'></script>
   <script src='javascript/helpers.js'></script>
   <script src='javascript/components.js'></script>

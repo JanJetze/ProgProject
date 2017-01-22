@@ -159,7 +159,7 @@ function axisContributie() {
     .scale(y)
     .orient('left')
     .ticks(5)
-    .tickFormat(function(d) { console.log(d);
+    .tickFormat(function(d) {
       deler = '1' + '0'.repeat((formatter * 3));
       return (d / deler)
     })
@@ -172,9 +172,9 @@ function axisContributie() {
 
   contributie.append('text')
     .attr('class', 'yLabel label')
-    .attr('text-anchor', 'end')
-    .attr('y', (margin.balans.left / 2))
-    .attr('x', -(innerHeight / 2))
+    .attr('text-anchor', 'middle')
+    .attr('y', (margin.contributie.left / 2))
+    .attr('x', -(margin.contributie.top + (innerHeight / 2)))
     .attr('transform', 'rotate(-90)')
     .text(yLabel)
 
@@ -204,6 +204,8 @@ function axisContributie() {
     .attr('y', bottomHeight - (margin.contributie.bottom / 4))
     .attr('x', (barWidth + spaceBetween) * 3.5 + margin.contributie.left)
     .text('premie')
+
+  d3.selectAll('#yAxis > .tick')[0][0].remove()
 }
 
 function axisPiramide() {
@@ -247,14 +249,16 @@ function axisPiramide() {
     .attr('id' , 'xAxisMan')
     .attr('transform', 'translate(' + (margin.piramide.left + innerWidth + (2 * margin.piramide.between)) + ', ' + (margin.piramide.top + innerHeight) + ')')
     .call(xAxisMan)
+
+  piramide.append("text")
+    .attr("class", "xLabel label")
+    .attr("text-anchor", "end")
+    .attr("x", (rightWidth - margin.piramide.right))
+    .attr("y", innerHeight + margin.piramide.top + margin.piramide.bottom - 10)
+    .text(yLabel.slice(1));
 }
 
 function axisBalans(x, y) {
-  // formatter = labelFormatter(max)
-  // yLabel = yLabelNamen[formatter - 1]
-
-  console.log(formatter, yLabel)
-
   xAxis = d3.svg.axis()
     .scale(x)
     .orient('bottom')

@@ -63,14 +63,23 @@ function drawBalans() {
       .attr('class', 'crosshair')
       .style('stroke', 'grey');
 
-  mousePerLine.append('text')
-      .attr('class', 'info')
-      .attr('x', 9)
-      .attr('dy', '.35em');
-
-  // show select year
   balans.append('text')
     .attr('class', 'year')
+
+  info = balans.append('g')
+    .attr('class', 'info')
+    .attr('transform', 'translate(' + (margin.balans.left + innerWidth) + ', 20)')
+
+  info.append('text')
+    .attr('class', 'infoRevenue')
+
+  info.append('text')
+    .attr('class', 'infoExpenses')
+    .attr('dy', 25)
+
+  info.append('text')
+    .attr('class', 'infoVerschil')
+    .attr('dy', 50)
 
   balans.append('rect')
     .attr('class', 'overlay')
@@ -80,7 +89,7 @@ function drawBalans() {
     .on('mouseover', function() { focus.style('display', null); })
     .attr('transform', 'translate(' + margin.balans.left + ',' + margin.balans.top + ')')
     .on('mouseout', function() { focus.style('display', 'none'); })
-    .on('mousemove', function() {mousemove('balans', x, y, this)})
+    .on('mousemove', function() {mousemoveBalans('balans', x, y, this)})
     .attr('transform', 'translate(' + margin.balans.left + ',' + margin.balans.top + ')')
     .on('click', function() {mouseClickBalans(x, this)});
 
@@ -108,8 +117,28 @@ function drawPiramide() {
     if (vrouw > max) {max = vrouw}
   })
 
+  info = piramide.append('g')
+    .attr('class', 'info')
+    .attr('transform', 'translate(' + (rightWidth - margin.piramide.right - 100) + ', 20)')
+
+  info.append('text')
+    .attr('class', 'infoLeeftijdBox')
+
+  info.append('text')
+    .attr('class', 'infoMannen')
+    .attr('dx', 150)
+
+  info.append('text')
+    .attr('class', 'infoVrouwen')
+    .attr('dx', 150)
+    .attr('dy', 25)
+
+  info.append('text')
+    .attr('class', 'infoTotaalLeeftijd')
+    .attr('dy', 25)
+
   formatter = labelFormatter(max)
-  yLabel = yLabelNamen[formatter - 1]
+  yLabel = yLabelNamen[formatter]
 
   xVrouw = d3.scale.linear()
     .domain([max, 0])
@@ -134,28 +163,30 @@ function drawPiramide() {
     .enter().append('rect')
       .attr('class', 'bar vrouw')
       .attr('x', function(d) { return xVrouw(d)})
-      .attr('y', function(d, i) { return (innerHeight - i * barHeight)})
+      .attr('y', function(d, i) { return (innerHeight - (i + 1) * barHeight)})
       .attr('height', barHeight)
       .attr('width', function(d) { return (innerWidth - xVrouw(d))})
       .on('mouseover', function(d, i) {mouseoverPiramide(this, i)})
       .on('mouseout', function() {mouseoutPiramide(this)})
+      .on('click', function(d, i) {mouseClickPiramide(this, i)})
 
   barsMan = piramide.append('g')
     .attr('class', 'bars barsMan')
     .attr('width' , innerWidth)
     .attr('height', innerHeight)
-    .attr('transform', 'translate(' + margin.piramide.between + ', ' + margin.piramide.top + ')')
+    .attr('transform', 'translate(' + (margin.piramide.left + innerWidth + (margin.piramide.between) * 2) + ', ' + margin.piramide.top + ')')
 
   barsMan.selectAll('.bar')
     .data(leeftijdenMannen)
     .enter().append('rect')
       .attr('class', 'bar man')
-      .attr('x', (margin.piramide.left + innerWidth + margin.piramide.left))
-      .attr('y', function(d, i) { return (innerHeight - i * barHeight)})
+      .attr('x', 0)
+      .attr('y', function(d, i) { return (innerHeight - (i + 1) * barHeight)})
       .attr('height', barHeight)
       .attr('width', function(d) { return xMan(d)})
       .on('mouseover', function(d, i) {mouseoverPiramide(this, i)})
       .on('mouseout', function() {mouseoutPiramide(this)})
+      .on('click', function(d, i) {mouseClickPiramide(this, i)})
 
   axisPiramide()
 }
@@ -167,12 +198,50 @@ function drawContributie(jaar) {
 
   inkomsten = calcRevenue(leeftijd, premie, jaar)
   uitgaven = calcExpense(leeftijd, bedrag, jaar)
+
   leeftijdInkomsten = {kleur: 'green', waarde: inkomsten - calcRevenue(statusQuoLeeftijd, premie, jaar)}
+  leeftijdInkomstenFormat = labelFormatter(parseInt(leeftijdInkomsten.waarde))
+  if (leeftijdInkomstenFormat > 0) {
+    leeftijdInkomstenLabel = yLabelNamen[leeftijdInkomstenFormat].slice(3)
+  }
+  else {leeftijdInkomstenLabel = ''}
+  if (leeftijdInkomsten.waarde >= 0) {leeftijdInkomstenSlice = 5}
+  else {leeftijdInkomstenSlice = 6}
+  leeftijdInkomstenNumber = leeftijdInkomsten.waarde / ('1' + '0'.repeat(leeftijdInkomstenFormat * 3))
+
   leeftijdUitgaven = {kleur: 'red', waarde: uitgaven - calcExpense(statusQuoLeeftijd, bedrag, jaar)}
+  leeftijdUitgavenFormat = labelFormatter(parseInt(leeftijdUitgaven.waarde))
+  if (leeftijdUitgavenFormat > 0) {
+    leeftijdUitgavenLabel = yLabelNamen[leeftijdInkomstenFormat].slice(3)
+  }
+  else {leeftijdUitgavenLabel = ''}
+  if (leeftijdUitgaven.waarde >= 0) {leeftijdUitgavenSlice = 5}
+  else {leeftijdUitgavenSlice = 6}
+  leeftijdUitgavenNumber = leeftijdUitgaven.waarde / ('1' + '0'.repeat(leeftijdUitgavenFormat * 3))
+
   bedragUitgaven = {kleur: 'red', waarde: uitgaven - calcExpense(leeftijd, statusQuoAOW, jaar)}
+  bedragUitgavenFormat = labelFormatter(parseInt(bedragUitgaven.waarde))
+  if (bedragUitgavenFormat > 0) {
+    bedragUitgavenLabel = yLabelNamen[bedragUitgavenFormat].slice(3)
+  }
+  else {bedragUitgavenLabel = ''}
+  if (bedragUitgaven.waarde >= 0) {bedragUitgavenSlice = 5}
+  else {bedragUitgavenSlice = 6}
+  bedragUitgavenNumber = bedragUitgaven.waarde / ('1' + '0'.repeat(bedragUitgavenFormat * 3))
+
   premieInkomsten = {kleur: 'green', waarde: inkomsten - calcRevenue(leeftijd, statusQuoPremie, jaar)}
+  premieInkomstenFormat = labelFormatter(parseInt(premieInkomsten.waarde))
+  if (premieInkomstenFormat > 0) {
+    premieInkomstenLabel = yLabelNamen[premieInkomstenFormat].slice(3)
+  }
+  else {premieInkomstenLabel = ''}
+  if (premieInkomsten.waarde >= 0) {premieInkomstenSlice = 5}
+  else {premieInkomstenSlice = 6}
+  premieInkomstenNumber = premieInkomsten.waarde / ('1' + '0'.repeat(premieInkomstenFormat * 3))
+
   leeftijdVerschil = [leeftijdInkomsten, leeftijdUitgaven]
   verschillen = [leeftijdInkomsten, leeftijdUitgaven, bedragUitgaven, premieInkomsten]
+
   min = 0
   max = 0
 
@@ -193,7 +262,7 @@ function drawContributie(jaar) {
     formatter = labelFormatter(parseInt(Math.abs(min)))
   }
   yLabel = yLabelNamen[formatter]
-  console.log(max, formatter, yLabel)
+
   x = d3.scale.ordinal()
     .domain(4)
     .rangeBands([0, innerWidth])
@@ -202,6 +271,38 @@ function drawContributie(jaar) {
     .domain([min, max])
     .range([innerHeight, 0])
     .nice()
+
+  info = contributie.append('g')
+    .attr('class', 'info infoContributie')
+    .attr('transform', 'translate(' + margin.contributie.left + ', ' + margin.contributie.top + ')')
+
+  info.append('text')
+    .attr('class', 'info infoLeeftijdRevenue')
+    .attr('dx', (barWidth + spaceBetween) * 0.5)
+    .attr('text-anchor', 'middle')
+    .text('€' + String(leeftijdInkomstenNumber).slice(0, leeftijdInkomstenSlice) + leeftijdInkomstenLabel)
+    .style('visibility', 'hidden')
+
+  info.append('text')
+    .attr('class', 'info infoLeeftijdExpense')
+    .attr('dx', (barWidth + spaceBetween) * 1.5)
+    .attr('text-anchor', 'middle')
+    .text('€' + String(leeftijdUitgavenNumber).slice(0, leeftijdUitgavenSlice) + leeftijdUitgavenLabel)
+    .style('visibility', 'hidden')
+
+  info.append('text')
+    .attr('class', 'info infoBedrag')
+    .attr('dx', (barWidth + spaceBetween) * 2.5)
+    .attr('text-anchor', 'middle')
+    .text('€' + String(bedragUitgavenNumber).slice(0, bedragUitgavenSlice) + bedragUitgavenLabel)
+    .style('visibility', 'hidden')
+
+  info.append('text')
+    .attr('class', 'info infoPremie')
+    .attr('dx', (barWidth + spaceBetween) * 3.5)
+    .attr('text-anchor', 'middle')
+    .text('€' + String(premieInkomstenNumber).slice(0, premieInkomstenSlice) + premieInkomstenLabel)
+    .style('visibility', 'hidden')
 
   contributie.selectAll('.bar')
     .data(verschillen)
@@ -229,4 +330,69 @@ function drawContributie(jaar) {
       .attr('y2', (margin.contributie.top + innerHeight))
   }
   axisContributie()
+  var focus = contributie.append('g')
+    .attr('class', 'focus focusContributie')
+
+  focus.append('rect')
+    .attr('class', 'focus focusLeeftijden')
+    .attr('x', margin.contributie.left)
+    .attr('y', margin.contributie.top)
+    .attr('height', innerHeight)
+    .attr('width', (barWidth + spaceBetween) * 2)
+    .on('click', function() {
+      if (document.querySelectorAll('.info>.infoLeeftijdRevenue')[0].style.visibility == 'hidden') {
+        contributie.select('.info>.infoLeeftijdRevenue')
+          .style('visibility', 'visible')
+        contributie.select('.info>.infoLeeftijdExpense')
+          .style('visibility', 'visible')
+      }
+      else {
+        contributie.select('.info>.infoLeeftijdRevenue')
+          .style('visibility', 'hidden')
+        contributie.select('.info>.infoLeeftijdExpense')
+          .style('visibility', 'hidden')
+      }
+    })
+
+  focus.append('rect')
+    .attr('class', 'focus focusBedrag')
+    .attr('x', margin.contributie.left + (barWidth + spaceBetween) * 2)
+    .attr('y', margin.contributie.top)
+    .attr('height', innerHeight)
+    .attr('width', barWidth + spaceBetween)
+    .on('click', function() {
+      if (document.querySelectorAll('.info>.infoBedrag')[0].style.visibility == 'hidden') {
+        contributie.select('.info>.infoBedrag')
+          .style('visibility', 'visible')
+        contributie.select('.info>.infoBedrag')
+          .style('visibility', 'visible')
+      }
+      else {
+        contributie.select('.info>.infoBedrag')
+          .style('visibility', 'hidden')
+        contributie.select('.info>.infoBedrag')
+          .style('visibility', 'hidden')
+      }
+    })
+
+  focus.append('rect')
+    .attr('class', 'focus focusPremie')
+    .attr('x', margin.contributie.left + (barWidth + spaceBetween) * 3)
+    .attr('y', margin.contributie.top)
+    .attr('height', innerHeight)
+    .attr('width', barWidth + spaceBetween)
+    .on('click', function() {
+      if (document.querySelectorAll('.info>.infoPremie')[0].style.visibility == 'hidden') {
+        contributie.select('.info>.infoPremie')
+          .style('visibility', 'visible')
+        contributie.select('.info>.infoPremie')
+          .style('visibility', 'visible')
+      }
+      else {
+        contributie.select('.info>.infoPremie')
+          .style('visibility', 'hidden')
+        contributie.select('.info>.infoPremie')
+          .style('visibility', 'hidden')
+      }
+    })
 }

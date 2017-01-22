@@ -9,14 +9,15 @@ var statusQuoLeeftijd = 67,
     modelVariabelen = [leeftijd, bedrag, premie],
     modelVariabelenStatusQuo = [statusQuoLeeftijd, statusQuoAOW, statusQuoPremie],
     leftWidth = 800,
+    // leftWidth = document.getElementById("balans").style.width,
     rightWidth = 650,
     topHeight = 400,
     bottomHeight = 200,
     legendBox = {width: 40, height: 40},
     margin = {
-      balans: {top: 100, right: 200, bottom: 50, left: 100},
-      piramide: {top: 70, right: 200, bottom: 30, left: 30, between: 20},
-      contributie: {top: 40, right: 200, bottom: 20, left: 100}
+      balans: {top: 70, right: 200, bottom: 50, left: 100},
+      piramide: {top: 70, right: 200, bottom: 50, left: 30, between: 20},
+      contributie: {top: 70, right: 200, bottom: 20, left: 100}
     },
     yLabelNamen = ['euro\'s', '€ x duizend', '€ x miljoen', '€ x miljard', '€ x biljoen', '€ x biljard']
     balans = d3.select('#balans')
@@ -28,6 +29,20 @@ var statusQuoLeeftijd = 67,
     contributie = d3.select('#contributie')
       .attr('width', leftWidth)
       .attr('height', bottomHeight)
+
+console.log('leftwidth', leftWidth)
+// $(document).ready(function () {
+//     var holdWidth = $(window).width();
+//     $(window).on('resize', function () {
+//         newPercentage = (($(window).width() / holdWidth) * 100) + "%";
+//         $("html").css("font-size", newPercentage)
+//
+//     });
+// });
+
+document.getElementById('leeftijdKeuze').value=statusQuoLeeftijd
+document.getElementById('bedragKeuze').value=statusQuoAOW
+document.getElementById('premieKeuze').value=statusQuoPremie
 
 balansTitle()
 balansSubTitle()
@@ -48,7 +63,6 @@ function mainLoop(error, file1, file2) {
   jaartallen = Object.keys(leeftijdsVerdeling)
   leeftijden = []
 
-  console.log(Object.keys(leeftijdsVerdeling))
   Object.keys(leeftijdsVerdeling[currentJaar]['leeftijden']).forEach(function(x) {
     leeftijden.push(parseInt(x))
   })

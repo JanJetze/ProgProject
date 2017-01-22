@@ -19,7 +19,6 @@ function calcExpense(leeftijd, bedrag, jaar) {
 function labelFormatter(number) {
   zeros = String(number).length - 1;
   deleting = zeros / 3;
-  console.log('formatter', number, zeros, deleting)
   return parseInt(deleting)
 }
 
@@ -38,13 +37,7 @@ function mouseClickBalans(x, mouse) {
 
 }
 
-function mousemove(chart, x, y, mouse) {
-  marginTop = eval('margin.' + chart + '.top')
-  marginRight = eval('margin.' + chart + '.right')
-  marginBottom = eval('margin.' + chart + '.bottom')
-  marginLeft = eval('margin.' + chart + '.left')
-  chart = eval(chart)
-
+function mousemoveBalans(chart, x, y, mouse) {
   // calculate what x-value is closest to mouse position
   var x0 = x.invert(d3.mouse(mouse)[0]);
   var series = data.map(function(e) {
@@ -54,28 +47,51 @@ function mousemove(chart, x, y, mouse) {
       index = x0 - index0 > index1 - x0 ? i : (i - 1);})
 
   // draw straight line on x-axis on position of mouse
-  chart.select('.crosshair')
-    .attr('x1', function() { return x(jaartallen[index]) + marginLeft})
-    .attr('y1', function() { return y(y.domain()[0]) + marginTop})
-    .attr('x2', function() { return x(jaartallen[index]) + marginLeft})
-    .attr('y2', function() { return y(y.domain()[1]) + marginTop})
+  balans.select('.crosshair')
+    .attr('x1', function() { return x(jaartallen[index]) + margin.balans.left})
+    .attr('y1', function() { return y(y.domain()[0]) + margin.balans.top})
+    .attr('x2', function() { return x(jaartallen[index]) + margin.balans.left})
+    .attr('y2', function() { return y(y.domain()[1]) + margin.balans.top})
 
   // position dots on each line corresponding to mouse position
   d3.selectAll('.mouse-per-line')
     .attr('transform', function(d, i) {return 'translate('
-      + (x(parseInt(jaartallen[index])) + marginLeft)+ ', '
-      + (y(d[index]) + marginTop) + ')'})
-
-  // show data for each line corresponding to dot position
-  chart.selectAll('.info')
-    .text(function(d, i) { return d3.format('d')(data[i][index])})
-    .attr('transform', 'translate(-8,-20)')
-    .attr('fill', 'red');
+      + (x(parseInt(jaartallen[index])) + margin.balans.left)+ ', '
+      + (y(d[index]) + margin.balans.top) + ')'})
 
   // show year on top of chart corresponding to mouse position
-  chart.select('.year')
-      .text(jaartallen[index])
-      .attr('transform', 'translate(100, 40)')
+  balans.select('.year')
+    .text(jaartallen[index])
+    .attr('transform', 'translate(100, 40)')
+
+  verschil = revenues[index] - expenses[index]
+  revenueFormat = labelFormatter(parseInt(revenues[index]))
+  expenseFormat = labelFormatter(parseInt(expenses[index]))
+  verschilFormat = labelFormatter(parseInt(verschil))
+  if (revenueFormat > 0) {
+    revenueLabel = yLabelNamen[revenueFormat].slice(3)
+  }
+  else {revenueLabel = ''}
+  if (expenseFormat > 0) {
+    expenseLabel = yLabelNamen[expenseFormat].slice(3)
+  }
+  else {expenseLabel = ''}
+  if (verschilFormat > 0) {
+    verschilLabel = yLabelNamen[verschilFormat].slice(3)
+  }
+  else {verschilLabel = ''}
+  revenueNumber = revenues[index] / ('1' + '0'.repeat(revenueFormat * 3))
+  expenseNumber = expenses[index] / ('1' + '0'.repeat(expenseFormat * 3))
+  verschilNumber = verschil / ('1' + '0'.repeat(verschilFormat * 3))
+
+  balans.select('.info>.infoRevenue')
+    .text('inkomsten: €' + String(revenueNumber).slice(0,5) + revenueLabel)
+  balans.select('.info>.infoExpenses')
+    .text('uitgaven: €' + String(expenseNumber).slice(0,5) + expenseLabel)
+  if (verschil >= 0) {slice = 5}
+  else {slice = 6}
+  balans.select('.info>.infoVerschil')
+    .text('verschil: €' + String(verschilNumber).slice(0,slice) + verschilLabel)
 };
 
 function mouseoverPiramide(bar, leeftijd) {
@@ -85,6 +101,7 @@ function mouseoverPiramide(bar, leeftijd) {
   bars = document.querySelectorAll('.bar[y="' + y + '"]');
   bars.forEach(function(bar) {
     bar.setAttribute('class', 'bar piramideHover')
+    bar.setAttribute('height', (barHeight * 2))
     leeftijdPos.push([bar.getAttribute('x'), bar.getAttribute('width')])
   })
 
@@ -110,7 +127,22 @@ function mouseoutPiramide(bar) {
   bars = document.querySelectorAll('.bar[y="' + y + '"]');
   bars.forEach(function(bar, i) {
     bar.setAttribute('class', 'bar ' + vrouwMan[i] + '')
+    bar.setAttribute('height', barHeight)
   })
 
 
+}
+
+function mouseClickPiramide(bar, leeftijd) {
+  piramide.select('.infoLeeftijdBox')
+    .text('Leeftijd: ' + leeftijd)
+
+  piramide.select('.infoMannen')
+    .text('Mannen: ' + d3.format(',')(leeftijdsVerdeling[currentJaar]['leeftijden'][leeftijd]['mannen']).replace(/,/g, '.'))
+
+  piramide.select('.infoVrouwen')
+    .text('Vrouwen: ' + d3.format(',')(leeftijdsVerdeling[currentJaar]['leeftijden'][leeftijd]['vrouwen']).replace(/,/g, '.'))
+
+  piramide.select('.infoTotaalLeeftijd')
+    .text('Totaal: ' + d3.format(',')(leeftijdsVerdeling[currentJaar]['leeftijden'][leeftijd]['mannen en vrouwen']).replace(/,/g, '.'))
 }
