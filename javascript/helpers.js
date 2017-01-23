@@ -1,9 +1,22 @@
 function calcRevenue(leeftijd, premie, jaar) {
   werkenden = 0
+  rev = 0
   for(i = leeftijd - 50; i < leeftijd; i++) {
-    werkenden += parseInt(leeftijdsVerdeling[jaar]['leeftijden'][i]['mannen en vrouwen']) * (werkloosheid[i] / 100)
+    werkenden = parseInt(leeftijdsVerdeling[jaar]['leeftijden'][i]['mannen en vrouwen']) * (werkloosheid[i] / 100)
+    Object.keys(inkomens[i]).forEach(function(each) {
+      klasse = inkomens[i][each]['percentage'] * werkenden
+      minimum = inkomens[i][each]['minimum']
+      maximum = inkomens[i][each]['maximum']
+      klasseInkomen = (minimum + maximum) / 2
+      klassePremie = klasseInkomen * (premie / 100)
+      if (klassePremie > maxPremie) {
+        rev += maxPremie * klasse
+      }
+      else {
+        rev += klassePremie
+      }
+    })
   }
-  rev = werkenden * (premie / 12)
   return rev
 }
 
@@ -12,7 +25,7 @@ function calcExpense(leeftijd, bedrag, jaar) {
   for(i = leeftijd; i <= 99; i++) {
     AOWGerechtigden += parseInt(leeftijdsVerdeling[jaar]['leeftijden'][i]['mannen en vrouwen'])
   }
-  exp = AOWGerechtigden * bedrag
+  exp = AOWGerechtigden * bedrag * 12
   return exp
 }
 

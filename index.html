@@ -16,13 +16,13 @@
       <form action="">
         <input id='leeftijdKeuze' type='number' min='50' max='99' placeholder='leeftijd'>
         <input id='bedragKeuze' type='number' min='1' max='10000' step='0.01' placeholder='bedrag'>
-        <input id='premieKeuze' type='number' min='1' max='100000' placeholder='premie'>
+        <input id='premieKeuze' type='number' min='0' max='100' step='0.01' placeholder='premie'>
         <input id='berekenKeuze' type='submit' value='bereken'>
       </form>
     </div>
   </div>
   <div id='visualisations'>
-    <div id='topvis' class='container-fluid row'>
+    <div id='topvis' class='row'>
       <div class='col-md-7'>
         <svg id='balans'>
         </svg>
@@ -33,10 +33,14 @@
       </div>
     </div>
     <div id='bottomvis' class='row'>
-      <svg id='contributie'>
-      </svg>
-      <svg id='informatie'>
-      </svg>
+      <div class='col-md-7'>
+        <svg id='contributie'>
+        </svg>
+      </div>
+      <div class='col-md-5'>
+        <svg id='informatie'>
+        </svg>
+      </div>
     </div>
   </div>
   <script src='javascript/bootstrap.js'></script>

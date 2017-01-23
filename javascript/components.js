@@ -57,16 +57,16 @@ function legendBalans() {
     .attr('class', 'legend')
 
   legendBalans.append('rect')
-    .attr('class', 'legendBox expenses')
+    .attr('class', 'legendBox expenses col-md-1')
     .attr('width', legendBox.width)
     .attr('height', legendBox.height)
-    .attr('x', leftWidth - 100)
+    .attr('x', leftWidth - column)
     .attr('y', (topHeight / 2) - 50)
 
   legendBalans.append('text')
     .attr('class', 'legendText')
     .attr('text-anchor', 'end')
-    .attr('x', leftWidth - 110)
+    .attr('x', leftWidth - column - 5)
     .attr('y', (topHeight / 2) - 25)
     .text('uitgaven')
 
@@ -74,13 +74,13 @@ function legendBalans() {
     .attr('class', 'legendBox revenues')
     .attr('width', legendBox.width)
     .attr('height', legendBox.height)
-    .attr('x', leftWidth - 100)
+    .attr('x', leftWidth - column)
     .attr('y', (topHeight / 2) + 10)
 
   legendBalans.append('text')
     .attr('class', 'legendText')
     .attr('text-anchor', 'end')
-    .attr('x', leftWidth - 110)
+    .attr('x', leftWidth - column - 5)
     .attr('y', (topHeight / 2) + 35)
     .text('inkomsten')
 }
@@ -192,14 +192,14 @@ function axisContributie() {
     .text('leeftijd')
 
   contributie.append('text')
-    .attr('clas', 'xLabel label')
+    .attr('class', 'xLabel label')
     .attr('text-anchor', 'middle')
     .attr('y', bottomHeight - (margin.contributie.bottom / 4))
     .attr('x', (barWidth + spaceBetween) * 2.5 + margin.contributie.left)
     .text('bedrag')
 
   contributie.append('text')
-    .attr('clas', 'xLabel label')
+    .attr('class', 'xLabel label')
     .attr('text-anchor', 'middle')
     .attr('y', bottomHeight - (margin.contributie.bottom / 4))
     .attr('x', (barWidth + spaceBetween) * 3.5 + margin.contributie.left)
