@@ -3,8 +3,8 @@ function drawBalans() {
   expenses = []
   revenues = []
   max = 0
-  innerHeight = topHeight - margin.balans.top - margin.balans.bottom
-  innerWidth = leftWidth - margin.balans.left - margin.balans.right
+  // innerHeight = topHeight - margin.balans.top - margin.balans.bottom
+  // innerWidth = leftWidth - margin.balans.left - margin.balans.right
   data = [expenses, revenues]
   names = ['expenses', 'revenues']
 
@@ -22,12 +22,11 @@ function drawBalans() {
 
   var x = d3.scale.linear()
     .domain([jaartallen[0], jaartallen[jaartallen.length - 1]])
-    .range([0, innerWidth])
-    .nice()
+    .range([0, measures.balans.graph.width])
 
   var y = d3.scale.linear()
     .domain([0, max])
-    .range([innerHeight, 0])
+    .range([measures.balans.graph.height, 0])
     .nice()
 
   var	valueline = d3.svg.line()
@@ -35,14 +34,30 @@ function drawBalans() {
     .x(function(d, i) { return x(jaartallen[i]); })
     .y(function(d, i) { return y(d); })
 
+  glyphi = balans.append('g')
+    .attr('class', 'glyphi')
+    .attr('transform', 'translate(10, 10)')
+    .on('click', function(){
+      document.getElementsByClassName('modal-title')[0].innerHTML = 'balans';
+      document.getElementsByClassName('modal-body')[0].innerHTML = infoGlyphiBalans
+      $('#myModal').modal('toggle')})
+
+  glyphi.append("svg:foreignObject")
+    .attr("width", 20)
+    .attr("height", 20)
+    .attr("y", 10)
+    .attr("x", 10)
+    .append("xhtml:span")
+    .attr("class", "control glyphicon glyphicon-info-sign");
+
   balans.append('path')
     .attr('class', 'line expenses')
-    .attr('transform', 'translate(' + margin.balans.left + ', ' + margin.balans.top + ')')
+    .attr('transform', 'translate(' + measures.balans.margin.left + ', ' + measures.balans.margin.top + ')')
     .attr('d', valueline(expenses))
 
   balans.append('path')
     .attr('class', 'line revenues')
-    .attr('transform', 'translate(' + margin.balans.left + ', ' + margin.balans.top + ')')
+    .attr('transform', 'translate(' + measures.balans.margin.left + ', ' + measures.balans.margin.top + ')')
     .attr('d', valueline(revenues))
 
   // add element to place mousePerLine in, which shows hover effects
@@ -68,7 +83,7 @@ function drawBalans() {
 
   info = balans.append('g')
     .attr('class', 'info')
-    .attr('transform', 'translate(' + (margin.balans.left + innerWidth) + ', 20)')
+    .attr('transform', 'translate(' + (measures.balans.margin.left + measures.balans.graph.width) + ', 20)')
 
   info.append('text')
     .attr('class', 'infoRevenue')
@@ -83,27 +98,29 @@ function drawBalans() {
 
   balans.append('rect')
     .attr('class', 'overlay')
-    .attr('width', innerWidth)
-    .attr('height', innerHeight)
+    .attr('width', measures.balans.graph.width)
+    .attr('height', measures.balans.graph.height)
     .attr('pointer-events', 'all')
     .on('mouseover', function() { focus.style('display', null); })
-    .attr('transform', 'translate(' + margin.balans.left + ',' + margin.balans.top + ')')
-    .on('mouseout', function() { focus.style('display', 'none'); })
+    .attr('transform', 'translate(' + measures.balans.margin.left + ',' + measures.balans.margin.top + ')')
+    .on('mouseout', function() { focus.style('display', 'none');
+      d3.selectAll('.info > text')
+        .text('')
+    })
     .on('mousemove', function() {mousemoveBalans('balans', x, y, this)})
-    .attr('transform', 'translate(' + margin.balans.left + ',' + margin.balans.top + ')')
+    .attr('transform', 'translate(' + measures.balans.margin.left + ',' + measures.balans.margin.top + ')')
     .on('click', function() {mouseClickBalans(x, this)});
 
   axisBalans(x, y)
 }
 
-function drawPiramide() {
+function drawPiramide(currentJaar) {
   d3.selectAll('#piramide > *:not(.title):not(.legend)').remove()
-
   piramideSubTitle()
 
-  innerHeight = topHeight - margin.piramide.bottom - margin.piramide.top
-  innerWidth = (rightWidth - margin.piramide.right - margin.piramide.left - margin.piramide.between) / 2
-  barHeight = innerHeight / leeftijden.length
+  // innerHeight = topHeight - margin.piramide.bottom - margin.piramide.top
+  // innerWidth = (rightWidth - margin.piramide.right - margin.piramide.left - margin.piramide.between) / 2
+  barHeight = measures.piramide.graph.height / leeftijden.length
   leeftijdenMannen = []
   leeftijdenVrouwen = []
   max = 0
@@ -117,9 +134,25 @@ function drawPiramide() {
     if (vrouw > max) {max = vrouw}
   })
 
+  glyphi = piramide.append('g')
+    .attr('class', 'glyphi')
+    .attr('transform', 'translate(10, 10)')
+    .on('click', function(){
+      document.getElementsByClassName('modal-title')[0].innerHTML = 'piramide';
+      document.getElementsByClassName('modal-body')[0].innerHTML = infoGlyphiPiramide
+      $('#myModal').modal('toggle')})
+
+  glyphi.append("svg:foreignObject")
+    .attr("width", 20)
+    .attr("height", 20)
+    .attr("y", 10)
+    .attr("x", 10)
+    .append("xhtml:span")
+    .attr("class", "control glyphicon glyphicon-info-sign");
+
   info = piramide.append('g')
     .attr('class', 'info')
-    .attr('transform', 'translate(' + (rightWidth - margin.piramide.right - 100) + ', 20)')
+    .attr('transform', 'translate(' + (measures.piramide.width - measures.piramide.margin.right - 100) + ', 20)')
 
   info.append('text')
     .attr('class', 'infoLeeftijdBox')
@@ -142,46 +175,46 @@ function drawPiramide() {
 
   xVrouw = d3.scale.linear()
     .domain([max, 0])
-    .range([0, innerWidth])
+    .range([0, measures.piramide.graph.width])
 
   xMan = d3.scale.linear()
     .domain([0, max])
-    .range([0, innerWidth])
+    .range([0, measures.piramide.graph.width])
 
   y = d3.scale.linear()
     .domain([0, leeftijden[leeftijden.length - 1]])
-    .range([innerHeight, 0])
+    .range([measures.piramide.graph.height, 0])
 
   barsVrouw = piramide.append('g')
     .attr('class', 'bars barsVrouw')
-    .attr('width', innerWidth)
-    .attr('height', innerHeight)
-    .attr('transform', 'translate(' + margin.piramide.left + ', ' + margin.piramide.top + ')')
+    .attr('width', measures.piramide.graph.width)
+    .attr('height', measures.piramide.graph.height)
+    .attr('transform', 'translate(' + measures.piramide.margin.left + ', ' + measures.piramide.margin.top + ')')
 
   barsVrouw.selectAll('.bar')
     .data(leeftijdenVrouwen)
     .enter().append('rect')
       .attr('class', 'bar vrouw')
       .attr('x', function(d) { return xVrouw(d)})
-      .attr('y', function(d, i) { return (innerHeight - (i + 1) * barHeight)})
+      .attr('y', function(d, i) { return (measures.piramide.graph.height - (i + 1) * barHeight)})
       .attr('height', barHeight)
-      .attr('width', function(d) { return (innerWidth - xVrouw(d))})
+      .attr('width', function(d) { return (measures.piramide.graph.width - xVrouw(d))})
       .on('mouseover', function(d, i) {mouseoverPiramide(this, i)})
       .on('mouseout', function() {mouseoutPiramide(this)})
       .on('click', function(d, i) {mouseClickPiramide(this, i)})
 
   barsMan = piramide.append('g')
     .attr('class', 'bars barsMan')
-    .attr('width' , innerWidth)
-    .attr('height', innerHeight)
-    .attr('transform', 'translate(' + (margin.piramide.left + innerWidth + (margin.piramide.between) * 2) + ', ' + margin.piramide.top + ')')
+    .attr('width' , measures.piramide.graph.width)
+    .attr('height', measures.piramide.graph.height)
+    .attr('transform', 'translate(' + (measures.piramide.margin.left + measures.piramide.graph.width + (measures.piramide.margin.between) * 2) + ', ' + measures.piramide.margin.top + ')')
 
   barsMan.selectAll('.bar')
     .data(leeftijdenMannen)
     .enter().append('rect')
       .attr('class', 'bar man')
       .attr('x', 0)
-      .attr('y', function(d, i) { return (innerHeight - (i + 1) * barHeight)})
+      .attr('y', function(d, i) { return (measures.piramide.graph.height - (i + 1) * barHeight)})
       .attr('height', barHeight)
       .attr('width', function(d) { return xMan(d)})
       .on('mouseover', function(d, i) {mouseoverPiramide(this, i)})
@@ -250,10 +283,10 @@ function drawContributie(jaar) {
     if (verschil.waarde < min) {min = verschil.waarde}
   })
 
-  innerHeight = bottomHeight - margin.contributie.top - margin.contributie.bottom
-  innerWidth = leftWidth - margin.contributie.left - margin.contributie.right
+  // innerHeight = bottomHeight - margin.contributie.top - margin.contributie.bottom
+  // innerWidth = leftWidth - margin.contributie.left - margin.contributie.right
   spaceBetween = 50
-  barWidth = innerWidth / 4 - spaceBetween
+  barWidth = measures.contributie.graph.width / 4 - spaceBetween
 
   if (Math.abs(max) > Math.abs(min)) {
     formatter = labelFormatter(parseInt(max))
@@ -265,54 +298,66 @@ function drawContributie(jaar) {
 
   x = d3.scale.ordinal()
     .domain(4)
-    .rangeBands([0, innerWidth])
+    .rangeBands([0, measures.contributie.graph.width])
 
   y = d3.scale.linear()
     .domain([min, max])
-    .range([innerHeight, 0])
+    .range([measures.contributie.graph.height, 0])
     .nice()
+
+  glyphi = contributie.append('g')
+    .attr('class', 'glyphi')
+    .attr('transform', 'translate(10, 10)')
+    .on('click', function(){
+      document.getElementsByClassName('modal-title')[0].innerHTML = 'contributie';
+      document.getElementsByClassName('modal-body')[0].innerHTML = infoGlyphiContributie
+      $('#myModal').modal('toggle')})
+
+  glyphi.append("svg:foreignObject")
+    .attr("width", 20)
+    .attr("height", 20)
+    .attr("y", 10)
+    .attr("x", 10)
+    .append("xhtml:span")
+    .attr("class", "control glyphicon glyphicon-info-sign");
 
   info = contributie.append('g')
     .attr('class', 'info infoContributie')
-    .attr('transform', 'translate(' + margin.contributie.left + ', ' + margin.contributie.top + ')')
+    .attr('transform', 'translate(' + measures.contributie.margin.left + ', ' + measures.contributie.margin.top + ')')
 
   info.append('text')
     .attr('class', 'info infoLeeftijdRevenue')
     .attr('dx', (barWidth + spaceBetween) * 0.5)
     .attr('text-anchor', 'middle')
-    .text('€' + String(leeftijdInkomstenNumber).slice(0, leeftijdInkomstenSlice) + leeftijdInkomstenLabel)
-    .style('visibility', 'hidden')
+    .text('')
 
   info.append('text')
     .attr('class', 'info infoLeeftijdExpense')
     .attr('dx', (barWidth + spaceBetween) * 1.5)
     .attr('text-anchor', 'middle')
-    .text('€' + String(leeftijdUitgavenNumber).slice(0, leeftijdUitgavenSlice) + leeftijdUitgavenLabel)
-    .style('visibility', 'hidden')
+    .text('')
 
   info.append('text')
     .attr('class', 'info infoBedrag')
     .attr('dx', (barWidth + spaceBetween) * 2.5)
     .attr('text-anchor', 'middle')
-    .text('€' + String(bedragUitgavenNumber).slice(0, bedragUitgavenSlice) + bedragUitgavenLabel)
-    .style('visibility', 'hidden')
+    .text('')
 
   info.append('text')
     .attr('class', 'info infoPremie')
     .attr('dx', (barWidth + spaceBetween) * 3.5)
     .attr('text-anchor', 'middle')
-    .text('€' + String(premieInkomstenNumber).slice(0, premieInkomstenSlice) + premieInkomstenLabel)
-    .style('visibility', 'hidden')
+    .text('')
 
   contributie.selectAll('.bar')
     .data(verschillen)
     .enter().append('rect')
       .attr('class', 'bar')
-      .attr('x', function(d, i) { return (barWidth * i) + margin.contributie.left + ((i + 0.5) * spaceBetween)})
+      .attr('x', function(d, i) { return (barWidth * i) + measures.contributie.margin.left + ((i + 0.5) * spaceBetween)})
       .attr('y', function(d) {
         if (d.waarde >= 0) { pos = y(d.waarde)}
         else { pos = y(0)}
-        return (pos + margin.contributie.top)
+        return (pos + measures.contributie.margin.top)
       })
       .attr('height', function(d) {
         if (d.waarde >= 0) { return (y(0) - y(d.waarde))}
@@ -324,10 +369,10 @@ function drawContributie(jaar) {
   for (var i = 2; i <= 3; i++) {
     contributie.append('line')
       .attr('class', 'dashedLine')
-      .attr('x1', margin.contributie.left + (spaceBetween * i) + (barWidth * i))
-      .attr('x2', margin.contributie.left + (spaceBetween * i) + (barWidth * i))
-      .attr('y1', (margin.contributie.top))
-      .attr('y2', (margin.contributie.top + innerHeight))
+      .attr('x1', measures.contributie.margin.left + (spaceBetween * i) + (barWidth * i))
+      .attr('x2', measures.contributie.margin.left + (spaceBetween * i) + (barWidth * i))
+      .attr('y1', (measures.contributie.margin.top))
+      .attr('y2', (measures.contributie.margin.top + measures.contributie.graph.height))
   }
   axisContributie()
   var focus = contributie.append('g')
@@ -335,64 +380,56 @@ function drawContributie(jaar) {
 
   focus.append('rect')
     .attr('class', 'focus focusLeeftijden')
-    .attr('x', margin.contributie.left)
-    .attr('y', margin.contributie.top)
-    .attr('height', innerHeight)
+    .attr('x', measures.contributie.margin.left)
+    .attr('y', measures.contributie.margin.top)
+    .attr('height', measures.contributie.graph.height)
     .attr('width', (barWidth + spaceBetween) * 2)
-    .on('click', function() {
-      if (document.querySelectorAll('.info>.infoLeeftijdRevenue')[0].style.visibility == 'hidden') {
+    .on('click', function() { console.log(d3.select('.info > .infoLeeftijdRevenue').text())
+      if (d3.select('.info>.infoLeeftijdRevenue').text() == '') {
         contributie.select('.info>.infoLeeftijdRevenue')
-          .style('visibility', 'visible')
+          .text('€' + String(leeftijdInkomstenNumber).slice(0, leeftijdInkomstenSlice) + leeftijdInkomstenLabel)
         contributie.select('.info>.infoLeeftijdExpense')
-          .style('visibility', 'visible')
+          .text('€' + String(leeftijdUitgavenNumber).slice(0, leeftijdUitgavenSlice) + leeftijdUitgavenLabel)
       }
       else {
         contributie.select('.info>.infoLeeftijdRevenue')
-          .style('visibility', 'hidden')
+          .text('')
         contributie.select('.info>.infoLeeftijdExpense')
-          .style('visibility', 'hidden')
+          .text('')
       }
     })
 
   focus.append('rect')
     .attr('class', 'focus focusBedrag')
-    .attr('x', margin.contributie.left + (barWidth + spaceBetween) * 2)
-    .attr('y', margin.contributie.top)
-    .attr('height', innerHeight)
+    .attr('x', measures.contributie.margin.left + (barWidth + spaceBetween) * 2)
+    .attr('y', measures.contributie.margin.top)
+    .attr('height', measures.contributie.graph.height)
     .attr('width', barWidth + spaceBetween)
     .on('click', function() {
-      if (document.querySelectorAll('.info>.infoBedrag')[0].style.visibility == 'hidden') {
+      if (d3.select('.info>.infoBedrag').text() == '') {
         contributie.select('.info>.infoBedrag')
-          .style('visibility', 'visible')
-        contributie.select('.info>.infoBedrag')
-          .style('visibility', 'visible')
+          .text('€' + String(bedragUitgavenNumber).slice(0, bedragUitgavenSlice) + bedragUitgavenLabel)
       }
       else {
         contributie.select('.info>.infoBedrag')
-          .style('visibility', 'hidden')
-        contributie.select('.info>.infoBedrag')
-          .style('visibility', 'hidden')
+          .text('')
       }
     })
 
   focus.append('rect')
     .attr('class', 'focus focusPremie')
-    .attr('x', margin.contributie.left + (barWidth + spaceBetween) * 3)
-    .attr('y', margin.contributie.top)
-    .attr('height', innerHeight)
+    .attr('x', measures.contributie.margin.left + (barWidth + spaceBetween) * 3)
+    .attr('y', measures.contributie.margin.top)
+    .attr('height', measures.contributie.graph.height)
     .attr('width', barWidth + spaceBetween)
     .on('click', function() {
-      if (document.querySelectorAll('.info>.infoPremie')[0].style.visibility == 'hidden') {
+      if (d3.select('.info>.infoPremie').text() == '') {
         contributie.select('.info>.infoPremie')
-          .style('visibility', 'visible')
-        contributie.select('.info>.infoPremie')
-          .style('visibility', 'visible')
+          .text('€' + String(premieInkomstenNumber).slice(0, premieInkomstenSlice) + premieInkomstenLabel)
       }
       else {
         contributie.select('.info>.infoPremie')
-          .style('visibility', 'hidden')
-        contributie.select('.info>.infoPremie')
-          .style('visibility', 'hidden')
+          .text('')
       }
     })
 }

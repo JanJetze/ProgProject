@@ -1,11 +1,55 @@
-.container{
-  border: 2px solid black;
+
+.glyphi {
+  font-size: 20px;
 }
 
-#piramide, #balans {
+.btn-group {
+  display: inline-block;
+  width: 100px;
+}
+.dropdown,
+.btn {
+  background-color: grey;
+}
+.btn {
+  color: #f5f5f5;
+}
+
+#sliderJaren {
+  width: 900px;
+}
+
+.btn:hover {
+  background-color: #dcdcdc;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+#main {
+  visibility: hidden;
+}
+
+.alert {
+  display: none;
+}
+
+/*#piramide, #balans {
   display: inline-block;
   position: relative;
-}
+}*/
 
 .overlay {
   fill: none;
@@ -76,3 +120,25 @@
 .crosshair {
   stroke: grey;
 }*/
+
+.svg-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 25%; /* aspect ratio */
+  vertical-align: top;
+  overflow: hidden;
+}
+.svg-content-responsive {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+
+.svg-content {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

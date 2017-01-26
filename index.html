@@ -2,45 +2,119 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <link rel='stylesheet' type='text/css' href='css/stylesheet.css'>
   <link rel='stylesheet' type='text/css' href='css/bootstrap.css'>
+  <link rel='stylesheet' type='text/css' href='css/stylesheet.css'>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://d3js.org/queue.v1.min.js"></script>
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
   <script src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.0/bootstrap-slider.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.0/css/bootstrap-slider.css" />
 </head>
 <body>
-  <div id='header' class='container-fluid'>
-    <h1 id='title'>Hier komt de titel</h1>
-    <div class='row col-md-offset-1'>
-      <form action="">
-        <input id='leeftijdKeuze' type='number' min='50' max='99' placeholder='leeftijd'>
-        <input id='bedragKeuze' type='number' min='1' max='10000' step='0.01' placeholder='bedrag'>
-        <input id='premieKeuze' type='number' min='0' max='100' step='0.01' placeholder='premie'>
-        <input id='berekenKeuze' type='submit' value='bereken'>
-      </form>
-    </div>
+  <div id='load'>
+    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
   </div>
-  <div id='visualisations'>
-    <div id='topvis' class='row'>
-      <div class='col-md-7'>
-        <svg id='balans'>
-        </svg>
+  <div id='main'>
+    <div class="alert alert-danger">
+      <strong>Error!</strong> Bestanden konden niet worden geladen.
+    </div>
+    <div id='header' class='container'>
+      <div class='row col-md-offset-1'>
+        <h1 id='title'>Hier komt de titel
+          <!-- <g class='glyphi question col-md-offset-3'>
+            <span class='control glyphicon glyphicon-question-sign'></span>
+          </g>
+          <g class='glyphi info'>
+            <span class='control glyphicon glyphicon-info-sign'></span>
+          </g> -->
+        </h1>
       </div>
-      <div class='col-md-5'>
-        <svg id='piramide'>
-        </svg>
+      <div class="dropdown">
+        <div class='btn-group'>
+          <button class="btn" type="button" data-toggle="dropdown">
+            variabelen
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              leeftijd <input id='leeftijdKeuze' type='number' min='50' max='99' placeholder='leeftijd'>
+            </li>
+            <li>
+              bedrag <input id='bedragKeuze' type='number' min='1' max='10000' step='0.01' placeholder='bedrag'>
+            </li>
+            <li>
+              premie <input id='premieKeuze' type='number' min='0' max='100' step='0.01' placeholder='premie'>
+            </li>
+            <li>
+              <input id='berekenKeuze' type='submit' value='bereken'>
+            </li>
+          </ul>
+        </div>
+        <div class='btn-group'>
+          <button class="btn" type="button" data-toggle="dropdown">
+            jaartal
+            <span class="caret"></span>
+          </button>
+          <ul class='dropdown-menu'>
+            <li>
+              jaartal <input id="sliderJaren" autocomplete='off' type="range" min="2017" max="2060" step="1" defaultValue='2017' value="2017">
+            </li>
+          </ul>
+        </div>
+        <g class='glyphi question col-md-offset-3'>
+          hulp
+          <span class='control glyphicon glyphicon-question-sign'></span>
+        </g>
+        <g class='glyphi info'>
+          info
+          <span class='control glyphicon glyphicon-info-sign'></span>
+        </g>
+      </div>
+      <div class='col-md-6 col-md-offset-1' >
+        <g class='glyphi play'>
+          <span class='control glyphicon glyphicon-play-circle'></span>
+        </g>
       </div>
     </div>
-    <div id='bottomvis' class='row'>
-      <div class='col-md-7'>
-        <svg id='contributie'>
-        </svg>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel"></h4>
+          </div>
+          <div class="modal-body">
+          </div>
+        </div>
       </div>
-      <div class='col-md-5'>
-        <svg id='informatie'>
-        </svg>
-      </div>
+    </div>
+    <div id='visualisations' class='container'>
+      <!-- <div id='topvis' class='row'> -->
+        <div class='col-md-7 row'>
+          <div class='col-md-12 row'>
+            <!-- <div id='divBalans'> -->
+            <!-- </div> -->
+            <svg id='balans'>
+            </svg>
+          </div>
+          <div class='col-md-12 row'>
+            <!-- <div id='divContributie'> -->
+            <!-- </div> -->
+            <svg id='contributie'>
+            </svg>
+          </div>
+        </div>
+        <div class='col-md-5'>
+          <!-- <div id='divPiramide'> -->
+          <!-- </div> -->
+          <svg id='piramide'>
+          </svg>
+        </div>
+      <!-- </div> -->
+      <!-- <div id='bottomvis' class='row'> -->
+      <!-- </div> -->
     </div>
   </div>
   <script src='javascript/bootstrap.js'></script>
@@ -48,5 +122,6 @@
   <script src='javascript/helpers.js'></script>
   <script src='javascript/components.js'></script>
   <script src='javascript/main.js'></script>
+  <script src='javascript/texts.js'></script>
 </body>
 </html>

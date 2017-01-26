@@ -36,16 +36,14 @@ function labelFormatter(number) {
 }
 
 function mouseClickBalans(x, mouse) {
-  console.log(x)
   var x0 = x.invert(d3.mouse(mouse)[0]);
   var series = data.map(function(e) {
       i = d3.bisect(jaartallen, x0),
       index0 = jaartallen[i - 1],
       index1 = jaartallen[i],
       index = x0 - index0 > index1 - x0 ? i : (i - 1);})
-  console.log(currentJaar)
   currentJaar = parseInt(jaartallen[index])
-  drawPiramide()
+  drawPiramide(currentJaar)
   drawContributie(currentJaar)
 
 }
@@ -61,16 +59,16 @@ function mousemoveBalans(chart, x, y, mouse) {
 
   // draw straight line on x-axis on position of mouse
   balans.select('.crosshair')
-    .attr('x1', function() { return x(jaartallen[index]) + margin.balans.left})
-    .attr('y1', function() { return y(y.domain()[0]) + margin.balans.top})
-    .attr('x2', function() { return x(jaartallen[index]) + margin.balans.left})
-    .attr('y2', function() { return y(y.domain()[1]) + margin.balans.top})
+    .attr('x1', function() { return x(jaartallen[index]) + measures.balans.margin.left})
+    .attr('y1', function() { return y(y.domain()[0]) + measures.balans.margin.top})
+    .attr('x2', function() { return x(jaartallen[index]) + measures.balans.margin.left})
+    .attr('y2', function() { return y(y.domain()[1]) + measures.balans.margin.top})
 
   // position dots on each line corresponding to mouse position
   d3.selectAll('.mouse-per-line')
     .attr('transform', function(d, i) {return 'translate('
-      + (x(parseInt(jaartallen[index])) + margin.balans.left)+ ', '
-      + (y(d[index]) + margin.balans.top) + ')'})
+      + (x(parseInt(jaartallen[index])) + measures.balans.margin.left)+ ', '
+      + (y(d[index]) + measures.balans.margin.top) + ')'})
 
   // show year on top of chart corresponding to mouse position
   balans.select('.year')
@@ -120,15 +118,8 @@ function mouseoverPiramide(bar, leeftijd) {
 
   piramide.append('text')
     .attr('class', 'infoLeeftijd')
-    .attr('x', margin.piramide.left)
-    .attr('y', parseInt(y) + margin.piramide.top)
-    .attr('text-anchor', 'end')
-    .text(leeftijd)
-
-  piramide.append('text')
-    .attr('class', 'infoLeeftijd')
-    .attr('x', innerWidth)
-    .attr('y', parseInt(y) + margin.piramide.top)
+    .attr('x', (measures.piramide.graph.width + measures.piramide.margin.left) / 2)
+    .attr('y', parseInt(y) + measures.piramide.margin.top + 6)
     .attr('text-anchor', 'end')
     .text(leeftijd)
 }
@@ -158,4 +149,12 @@ function mouseClickPiramide(bar, leeftijd) {
 
   piramide.select('.infoTotaalLeeftijd')
     .text('Totaal: ' + d3.format(',')(leeftijdsVerdeling[currentJaar]['leeftijden'][leeftijd]['mannen en vrouwen']).replace(/,/g, '.'))
+}
+
+function playPiramide() {
+  for (var i = currentJaar; i <= 2060; i++) {
+    (function(i) {
+      setTimeout(function() {currentJaar = i; drawPiramide(currentJaar)}, (i - currentJaar) * 1000)
+    })(i);
+  }
 }

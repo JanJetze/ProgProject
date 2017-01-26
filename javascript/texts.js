@@ -1,0 +1,5 @@
+infoGlyphiBalans = 'Hier komt informatie over de visualisatie Balans'
+infoGlyphiPiramide = 'Hier komt informatie over de visualisatie Piramide'
+infoGlyphiContributie = 'Hier komt informatie over de visualisatie Contributie'
+infoGlyphiAlgemeen = 'Hier komt algemene informatie over de site'
+questionGlyphiAlgemeen = 'Hier komt uitleg hoe de pagina en de interactiviteit werkt'
