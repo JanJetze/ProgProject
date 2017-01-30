@@ -140,21 +140,21 @@ td {
 }
 
 .expenses {
-  stroke: red;
-  fill: red;
+  stroke: #d95f02;
+  fill: #d95f02;
 }
 
 .revenues {
-  stroke: green;
-  fill: green;
+  stroke: #1b9e77;
+  fill: #1b9e77;
 }
 
 .vrouw {
-  fill: fuchsia;
+  fill: #b2df8a;
 }
 
 .man {
-  fill: blue;
+  fill: #a6cee3;
 }
 
 .piramideHover {
