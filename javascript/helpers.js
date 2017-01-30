@@ -161,7 +161,7 @@ function mouseoverPiramide(bar, leeftijd) {
         '</tr>' +
         '<tr>' +
           '<th>totaal</th>' +
-          '<td>' + d3.format(',')(leeftijdsVerdeling[currentJaar]['leeftijden'][leeftijd]['mannen']).replace(/,/g, '.') + '</td>' +
+          '<td>' + d3.format(',')(leeftijdsVerdeling[currentJaar]['leeftijden'][leeftijd]['mannen en vrouwen']).replace(/,/g, '.') + '</td>' +
         '</tr>' +
       '</table>'
     )
