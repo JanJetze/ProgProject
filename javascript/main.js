@@ -6,7 +6,12 @@ var statusQuoLeeftijd = 67,
     leeftijd = statusQuoLeeftijd,
     bedrag = statusQuoBedrag,
     premie = statusQuoPremie,
-    minLeeftijd = 18,
+    variables = {
+      leeftijd: {basis: 67, min: 50, max: 99},
+      bedrag: {basis: 794.59, min: 0, max: 10000},
+      premie: {basis: 17.9, min: 0, max: 100}
+    },
+    minLeeftijd = 50,
     maxLeeftijd = 99,
     minBedrag = 0,
     maxBedrag = 10000,
@@ -49,6 +54,9 @@ var statusQuoLeeftijd = 67,
       .style('width', measures.slider.width + 'px')
     d3.select('#jaartal')
       .html(currentJaar)
+
+    variables.leeftijd = variables.leeftijd.basis
+    console.log(variables.leeftijd)
 
 
 
