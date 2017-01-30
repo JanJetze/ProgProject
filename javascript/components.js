@@ -1,10 +1,12 @@
 function balansTitle() {
-  balans.append('text')
+  balans.append('foreignObject')
     .attr('class', 'title')
     .attr('id', 'balansTitle')
-    .attr('x', (measures.balans.width / 4) + measures.balans.margin.left)
-    .attr('y', measures.balans.margin.top / 4)
-    .text('Balans Titel')
+    .attr('width', 100)
+    .attr('height', 100)
+    .attr('x', measures.balans.margin.left)
+    .append('xhtml:body')
+    .html('<h3>Balans</h3>')
 }
 
 function balansSubTitle() {
@@ -17,12 +19,14 @@ function balansSubTitle() {
 }
 
 function piramideTitle() {
-  piramide.append('text')
+  piramide.append('foreignObject')
     .attr('class', 'title')
     .attr('id', 'piramideTitle')
-    .attr('x', (measures.piramide.width / 4) + measures.piramide.margin.left)
-    .attr('y', measures.piramide.margin.top / 4)
-    .text('Piramide Titel')
+    .attr('width', 200)
+    .attr('height', 100)
+    .attr('x', measures.piramide.margin.left)
+    .append('xhtml:body')
+    .html('<h3>Bevolkings piramide</h3>')
 }
 
 function piramideSubTitle() {
@@ -35,12 +39,14 @@ function piramideSubTitle() {
 }
 
 function contributieTitle() {
-  contributie.append('text')
+  contributie.append('foreignObject')
     .attr('class', 'title')
     .attr('id', 'contributieTitle')
-    .attr('x', (measures.contributie.width / 4) + measures.contributie.margin.left)
-    .attr('y', measures.contributie.margin.top / 4)
-    .text('Contributie Titel')
+    .attr('width', 150)
+    .attr('height', 100)
+    .attr('x', measures.contributie.margin.left)
+    .append('xhtml:body')
+    .html('<h3>Contributie</h3>')
 }
 
 function contributieSubTitle() {
@@ -61,13 +67,13 @@ function legendBalans() {
     .attr('width', legendBox.width)
     .attr('height', legendBox.height)
     .attr('x', measures.balans.width - 100)
-    .attr('y', (measures.balans.height / 2) - 50)
+    .attr('y', measures.balans.height - measures.balans.margin.bottom - 35)
 
   legendBalans.append('text')
     .attr('class', 'legendText')
     .attr('text-anchor', 'end')
     .attr('x', measures.balans.width - 110)
-    .attr('y', (measures.balans.height / 2) - 25)
+    .attr('y', measures.balans.height - measures.balans.margin.bottom - 25)
     .text('uitgaven')
 
   legendBalans.append('rect')
@@ -75,48 +81,48 @@ function legendBalans() {
     .attr('width', legendBox.width)
     .attr('height', legendBox.height)
     .attr('x', measures.balans.width - 100)
-    .attr('y', (measures.balans.height / 2) + 10)
+    .attr('y', measures.balans.height - measures.balans.margin.bottom - 10)
 
   legendBalans.append('text')
     .attr('class', 'legendText')
     .attr('text-anchor', 'end')
     .attr('x', measures.balans.width - 110)
-    .attr('y', (measures.balans.height / 2) + 35)
+    .attr('y', measures.balans.height - measures.balans.margin.bottom)
     .text('inkomsten')
 }
 
-function legendPiramide() {
-  var legendPiramide = piramide.append('g')
-    .attr('class', 'legend')
-
-  legendPiramide.append('rect')
-    .attr('class', 'legendBox vrouw')
-    .attr('width', legendBox.width)
-    .attr('height', legendBox.height)
-    .attr('x', measures.piramide.width - 50)
-    .attr('y', (measures.piramide.height / 2) - 50)
-
-  legendPiramide.append('text')
-    .attr('class', 'legendText')
-    .attr('text-anchor', 'end')
-    .attr('x', measures.piramide.width - 60)
-    .attr('y', (measures.piramide.height / 2) - 25)
-    .text('vrouwen')
-
-  legendPiramide.append('rect')
-    .attr('class', 'legendBox man')
-    .attr('width', legendBox.width)
-    .attr('height', legendBox.height)
-    .attr('x', measures.piramide.width - 50)
-    .attr('y', (measures.piramide.height / 2) + 10)
-
-  legendPiramide.append('text')
-    .attr('class', 'legendText')
-    .attr('text-anchor', 'end')
-    .attr('x', measures.piramide.width - 60)
-    .attr('y', (measures.piramide.height / 2) + 35)
-    .text('mannen')
-}
+// function legendPiramide() {
+//   var legendPiramide = piramide.append('g')
+//     .attr('class', 'legend')
+//
+//   legendPiramide.append('rect')
+//     .attr('class', 'legendBox vrouw')
+//     .attr('width', legendBox.width)
+//     .attr('height', legendBox.height)
+//     .attr('x', measures.piramide.width - 50)
+//     .attr('y', (measures.piramide.height / 2) - 50)
+//
+//   legendPiramide.append('text')
+//     .attr('class', 'legendText')
+//     .attr('text-anchor', 'end')
+//     .attr('x', measures.piramide.width - 60)
+//     .attr('y', (measures.piramide.height / 2) - 25)
+//     .text('vrouwen')
+//
+//   legendPiramide.append('rect')
+//     .attr('class', 'legendBox man')
+//     .attr('width', legendBox.width)
+//     .attr('height', legendBox.height)
+//     .attr('x', measures.piramide.width - 50)
+//     .attr('y', (measures.piramide.height / 2) + 10)
+//
+//   legendPiramide.append('text')
+//     .attr('class', 'legendText')
+//     .attr('text-anchor', 'end')
+//     .attr('x', measures.piramide.width - 60)
+//     .attr('y', (measures.piramide.height / 2) + 35)
+//     .text('mannen')
+// }
 
 function legendContributie() {
   var legendContributie = contributie.append('g')
@@ -127,13 +133,13 @@ function legendContributie() {
     .attr('width', legendBox.width)
     .attr('height', legendBox.height)
     .attr('x', measures.contributie.width - 100)
-    .attr('y', (measures.contributie.height / 2) - 50)
+    .attr('y', measures.contributie.height - measures.contributie.margin.bottom - 35)
 
   legendContributie.append('text')
     .attr('class', 'legendText')
     .attr('text-anchor', 'end')
     .attr('x', measures.contributie.width - 110)
-    .attr('y', (measures.contributie.height / 2) - 25)
+    .attr('y', measures.contributie.height - measures.contributie.margin.bottom - 25)
     .text('uitgaven')
 
   legendContributie.append('rect')
@@ -141,13 +147,13 @@ function legendContributie() {
     .attr('width', legendBox.width)
     .attr('height', legendBox.height)
     .attr('x', measures.contributie.width - 100)
-    .attr('y', (measures.contributie.height / 2) + 10)
+    .attr('y', measures.contributie.height - measures.contributie.margin.bottom - 10)
 
   legendContributie.append('text')
     .attr('class', 'legendText')
     .attr('text-anchor', 'end')
     .attr('x', measures.contributie.width - 110)
-    .attr('y', (measures.contributie.height / 2) + 35)
+    .attr('y', measures.contributie.height - measures.contributie.margin.bottom)
     .text('inkomsten')
 }
 
@@ -158,7 +164,7 @@ function axisContributie() {
   yAxis = d3.svg.axis()
     .scale(y)
     .orient('left')
-    .ticks(5)
+    .ticks(3)
     .tickFormat(function(d) {
       deler = '1' + '0'.repeat((formatter * 3));
       return (d / deler)
@@ -230,7 +236,8 @@ function axisPiramide() {
   yAxis = d3.svg.axis()
     .scale(y)
     .orient('right')
-    .ticks(10)
+    .ticks(9)
+    .outerTickSize(0)
 
   piramide.append('g')
     .attr('class', 'axis')
@@ -252,10 +259,17 @@ function axisPiramide() {
 
   piramide.append("text")
     .attr("class", "xLabel label")
+    .attr("text-anchor", "start")
+    .attr("x", (measures.piramide.margin.left))
+    .attr("y", measures.piramide.graph.height + measures.piramide.margin.top + measures.piramide.margin.bottom - 10)
+    .text('vrouwen ' + yLabel.slice(1));
+
+  piramide.append("text")
+    .attr("class", "xLabel label")
     .attr("text-anchor", "end")
     .attr("x", (measures.piramide.width - measures.piramide.margin.right))
     .attr("y", measures.piramide.graph.height + measures.piramide.margin.top + measures.piramide.margin.bottom - 10)
-    .text(yLabel.slice(1));
+    .text('mannen ' + yLabel.slice(1));
 }
 
 function axisBalans(x, y) {

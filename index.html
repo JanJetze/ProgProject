@@ -2,11 +2,13 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <link rel='stylesheet' type='text/css' href='css/d3.slider.css'>
   <link rel='stylesheet' type='text/css' href='css/bootstrap.css'>
   <link rel='stylesheet' type='text/css' href='css/stylesheet.css'>
   <script src='javascript/d3.v3.min.js'></script>
   <script src='javascript/d3.tip.v0.6.3.js'></script>
   <script src='javascript/queue.v1.min.js'></script>
+  <script src='javascript/d3.slider.js'></script>
   <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
   <!-- <script src="http://d3js.org/queue.v1.min.js"></script> -->
   <!-- <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script> -->
@@ -15,109 +17,137 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.0/css/bootstrap-slider.css" />
 </head>
 <body>
-  <div id='load'>
-    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+  <table id="load">
+    <tbody>
+      <tr>
+        <td>
+          <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+          loading
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="alert alert-danger">
+    <strong>Error!</strong> Bestanden konden niet worden geladen.
   </div>
   <div id='main'>
-    <div class="alert alert-danger">
-      <strong>Error!</strong> Bestanden konden niet worden geladen.
-    </div>
     <div id='header' class='container'>
       <div class='row col-md-offset-1'>
-        <h1 id='title'>Hier komt de titel
-          <!-- <g class='glyphi question col-md-offset-3'>
-            <span class='control glyphicon glyphicon-question-sign'></span>
-          </g>
-          <g class='glyphi info'>
-            <span class='control glyphicon glyphicon-info-sign'></span>
-          </g> -->
+        <h1 id='title'>De toekomst van de AOW
         </h1>
       </div>
       <div class="dropdown">
         <div class='btn-group'>
           <button class="btn" type="button" data-toggle="dropdown">
-            variabelen
+            leeftijd
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
             <li>
-              leeftijd <input id='leeftijdKeuze' type='number' min='50' max='99' placeholder='leeftijd'>
+              in jaren
+              <input id='leeftijdKeuze' type='number' placeholder='leeftijd'>
             </li>
             <li>
-              bedrag <input id='bedragKeuze' type='number' min='1' max='10000' step='0.01' placeholder='bedrag'>
+              <input class='berekenKeuze' id='berekenLeeftijd' type='submit' value='bereken'>
             </li>
             <li>
-              premie <input id='premieKeuze' type='number' min='0' max='100' step='0.01' placeholder='premie'>
-            </li>
-            <li>
-              <input id='berekenKeuze' type='submit' value='bereken'>
+              <input class='resetKeuze' id='resetLeeftijd' type='submit' value='reset'>
             </li>
           </ul>
         </div>
         <div class='btn-group'>
           <button class="btn" type="button" data-toggle="dropdown">
-            jaartal
+            bedrag
             <span class="caret"></span>
           </button>
           <ul class='dropdown-menu'>
             <li>
-              jaartal <input id="sliderJaren" autocomplete='off' type="range" min="2017" max="2060" step="1" defaultValue='2017' value="2017">
+              in euro's
+              <input id='bedragKeuze' type='number' step='0.01' placeholder='bedrag'>
+            </li>
+            <li>
+              <input class='berekenKeuze' id='berekenBedrag' type='submit' value='bereken'>
+            </li>
+            <li>
+              <input class='resetKeuze' id='resetBedrag' type='submit' value='reset'>
             </li>
           </ul>
         </div>
-        <g class='glyphi question col-md-offset-3'>
+        <div class='btn-group'>
+          <button class="btn" type="button" data-toggle="dropdown">
+            premie
+            <span class="caret"></span>
+          </button>
+          <ul class='dropdown-menu'>
+            <li>
+              in procenten
+              <input id='premieKeuze' type='number' step='0.01' placeholder='premie'>
+            </li>
+            <li>
+              <input class='berekenKeuze' id='berekenPremie' type='submit' value='bereken'>
+            </li>
+            <li>
+              <input class='resetKeuze' id='resetPremie' type='submit' value='reset'>
+            </li>
+          </div>
+          <div class='btn-group' id='jaartalDiv'>
+            jaartal
+          </div>
+          <div class='btn-group' id='jaartal'>
+          </div>
+        <div class='btn-group questionButton'>
           hulp
-          <span class='control glyphicon glyphicon-question-sign'></span>
-        </g>
-        <g class='glyphi info'>
+          <g class='glyphi question'>
+            <span class='control glyphicon glyphicon-question-sign'></span>
+          </g>
+        </div>
+        <div class='btn-group questionButton'>
           info
-          <span class='control glyphicon glyphicon-info-sign'></span>
-        </g>
-      </div>
-      <div class='col-md-6 col-md-offset-1' >
-        <g class='glyphi play'>
-          <span class='control glyphicon glyphicon-play-circle'></span>
-        </g>
-      </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel"></h4>
-          </div>
-          <div class="modal-body">
-          </div>
+          <g class='glyphi info'>
+            <span class='control glyphicon glyphicon-info-sign'></span>
+          </g>
         </div>
       </div>
     </div>
     <div id='visualisations' class='container'>
-      <!-- <div id='topvis' class='row'> -->
         <div class='col-md-7 row'>
           <div class='col-md-12 row'>
-            <!-- <div id='divBalans'> -->
-            <!-- </div> -->
-            <svg id='balans'>
+            <svg id='balans' class='visualisation'>
             </svg>
           </div>
           <div class='col-md-12 row'>
-            <!-- <div id='divContributie'> -->
-            <!-- </div> -->
-            <svg id='contributie'>
+            <svg id='contributie' class='visualisation'>
             </svg>
           </div>
         </div>
         <div class='col-md-5'>
-          <!-- <div id='divPiramide'> -->
-          <!-- </div> -->
-          <svg id='piramide'>
+          <svg id='piramide' class='visualisation'>
           </svg>
+          <div id='slider'>
+            <p class='title'>
+              Selecteer jaartal
+              <g class='glyphi play'>
+                <span class='control glyphicon glyphicon-play'></span>
+              </g>
+              <g class='glyphi pause'>
+                <span class='control glyphicon glyphicon-pause'></span>
+              </g>
+            </p>
+          </div>
         </div>
-      <!-- </div> -->
-      <!-- <div id='bottomvis' class='row'> -->
-      <!-- </div> -->
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+        </div>
+      </div>
     </div>
   </div>
   <script src='javascript/bootstrap.js'></script>

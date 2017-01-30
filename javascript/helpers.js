@@ -9,13 +9,13 @@ function calcRevenue(leeftijd, premie, jaar) {
       maximum = inkomens[i][each]['maximum']
       klasseInkomen = (minimum + maximum) / 2
       klassePremie = klasseInkomen * (premie / 100)
-      if (klassePremie > maxPremie) {
-        rev += maxPremie * klasse
+      if (klassePremie > maxPremieTeBetalen) {
+        rev += maxPremieTeBetalen * klasse
       }
       else {
         rev += klassePremie
       }
-    })
+      })
   }
   return rev
 }
@@ -45,7 +45,13 @@ function mouseClickBalans(x, mouse) {
   currentJaar = parseInt(jaartallen[index])
   drawPiramide(currentJaar)
   drawContributie(currentJaar)
+  slider.value(currentJaar)
+  slider.destroy()
+  d3.select('#slider')
+    .call(slider)
 
+  d3.select('#jaartal')
+    .html(currentJaar)
 }
 
 function mousemoveBalans(chart, x, y, mouse) {
@@ -71,9 +77,9 @@ function mousemoveBalans(chart, x, y, mouse) {
       + (y(d[index]) + measures.balans.margin.top) + ')'})
 
   // show year on top of chart corresponding to mouse position
-  balans.select('.year')
+  focus.select('.year')
     .text(jaartallen[index])
-    .attr('transform', 'translate(100, 40)')
+    .attr('x', x(jaartallen[index]) + measures.balans.margin.left)
 
   verschil = revenues[index] - expenses[index]
   revenueFormat = labelFormatter(parseInt(revenues[index]))
@@ -95,14 +101,32 @@ function mousemoveBalans(chart, x, y, mouse) {
   expenseNumber = expenses[index] / ('1' + '0'.repeat(expenseFormat * 3))
   verschilNumber = verschil / ('1' + '0'.repeat(verschilFormat * 3))
 
-  balans.select('.info>.infoRevenue')
-    .text('inkomsten: €' + String(revenueNumber).slice(0,5) + revenueLabel)
-  balans.select('.info>.infoExpenses')
-    .text('uitgaven: €' + String(expenseNumber).slice(0,5) + expenseLabel)
+  // balans.select('.info>.infoRevenue')
+  //   .text('inkomsten: €' + String(revenueNumber).slice(0,5) + revenueLabel)
+  // balans.select('.info>.infoExpenses')
+  //   .text('uitgaven: €' + String(expenseNumber).slice(0,5) + expenseLabel)
   if (verschil >= 0) {slice = 5}
   else {slice = 6}
-  balans.select('.info>.infoVerschil')
-    .text('verschil: €' + String(verschilNumber).slice(0,slice) + verschilLabel)
+  // balans.select('.info>.infoVerschil')
+  //   .text('verschil: €' + String(verschilNumber).slice(0,slice) + verschilLabel)
+
+  balans.select('.infoBox')
+    .html(
+      '<table>' +
+        '<tr>' +
+          '<th>inkomsten</th>' +
+          '<td>€' + String(revenueNumber).slice(0,5) + revenueLabel + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th>uitgaven</th>' +
+          '<td>€' + String(expenseNumber).slice(0,5) + expenseLabel + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th>verschil</th>' +
+          '<td>€' + String(verschilNumber).slice(0,slice) + verschilLabel + '</td>' +
+        '</tr>' +
+      '</table>'
+    )
 };
 
 function mouseoverPiramide(bar, leeftijd) {
@@ -118,10 +142,30 @@ function mouseoverPiramide(bar, leeftijd) {
 
   piramide.append('text')
     .attr('class', 'infoLeeftijd')
-    .attr('x', (measures.piramide.graph.width + measures.piramide.margin.left) / 2)
+    .attr('x', measures.piramide.graph.width + measures.piramide.margin.left + measures.piramide.margin.between + 20)
     .attr('y', parseInt(y) + measures.piramide.margin.top + 6)
     .attr('text-anchor', 'end')
     .text(leeftijd)
+
+  piramide.select('.infoBox')
+    .style('display', null)
+    .html(
+      '<table>' +
+        '<tr>' +
+          '<th>mannen</th>' +
+          '<td>' + + d3.format(',')(leeftijdsVerdeling[currentJaar]['leeftijden'][leeftijd]['mannen']).replace(/,/g, '.') + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th>vrouwen</th>' +
+          '<td>' + d3.format(',')(leeftijdsVerdeling[currentJaar]['leeftijden'][leeftijd]['vrouwen']).replace(/,/g, '.') + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th>totaal</th>' +
+          '<td>' + d3.format(',')(leeftijdsVerdeling[currentJaar]['leeftijden'][leeftijd]['mannen']).replace(/,/g, '.') + '</td>' +
+        '</tr>' +
+      '</table>'
+    )
+
 }
 
 function mouseoutPiramide(bar) {
@@ -133,6 +177,9 @@ function mouseoutPiramide(bar) {
     bar.setAttribute('class', 'bar ' + vrouwMan[i] + '')
     bar.setAttribute('height', barHeight)
   })
+
+  piramide.selectAll('.infoBox')
+    .style('display', 'none')
 
 
 }
@@ -151,10 +198,35 @@ function mouseClickPiramide(bar, leeftijd) {
     .text('Totaal: ' + d3.format(',')(leeftijdsVerdeling[currentJaar]['leeftijden'][leeftijd]['mannen en vrouwen']).replace(/,/g, '.'))
 }
 
-function playPiramide() {
+function play() {
+  timer = []
   for (var i = currentJaar; i <= 2060; i++) {
     (function(i) {
-      setTimeout(function() {currentJaar = i; drawPiramide(currentJaar)}, (i - currentJaar) * 1000)
+    timer.push(setTimeout(function() {
+        currentJaar = i;
+        drawPiramide(currentJaar);
+        drawContributie(currentJaar);
+        slider.value(currentJaar);
+        slider.destroy();
+        d3.select('#slider')
+          .call(slider);
+        d3.select('#jaartal')
+          .html(currentJaar)}, (i - currentJaar) * 1000))
     })(i);
   }
+
+}
+
+function stop() {
+  timer.forEach(function(time) {
+    clearTimeout(time)
+  })
+}
+
+var myFn = function(slider) {
+currentJaar = parseInt(slider.value());
+d3.select('#jaartal')
+  .html(currentJaar)
+drawPiramide(currentJaar)
+drawContributie(currentJaar);
 }

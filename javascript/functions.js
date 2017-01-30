@@ -50,6 +50,13 @@ function drawBalans() {
     .append("xhtml:span")
     .attr("class", "control glyphicon glyphicon-info-sign");
 
+  balans.append('foreignObject')
+    .attr('x', measures.balans.margin.left + measures.balans.graph.width + 20)
+    .attr('width', 200)
+    .attr('height', 200)
+    .append('xhtml:div')
+    .attr('class', 'infoBox')
+
   balans.append('path')
     .attr('class', 'line expenses')
     .attr('transform', 'translate(' + measures.balans.margin.left + ', ' + measures.balans.margin.top + ')')
@@ -61,8 +68,9 @@ function drawBalans() {
     .attr('d', valueline(revenues))
 
   // add element to place mousePerLine in, which shows hover effects
-  var focus = balans.append('g')
+  focus = balans.append('g')
       .attr('class', 'focus')
+      .style('display', 'none')
 
   var mousePerLine = focus.selectAll('.mouse-per-line')
       .data(data)
@@ -78,8 +86,11 @@ function drawBalans() {
       .attr('class', 'crosshair')
       .style('stroke', 'grey');
 
-  balans.append('text')
+  focus.append('text')
     .attr('class', 'year')
+    .attr('text-anchor', 'middle')
+    .attr('y', measures.balans.margin.top - 10)
+    // .style('display', 'none')
 
   info = balans.append('g')
     .attr('class', 'info')
@@ -101,11 +112,13 @@ function drawBalans() {
     .attr('width', measures.balans.graph.width)
     .attr('height', measures.balans.graph.height)
     .attr('pointer-events', 'all')
-    .on('mouseover', function() { focus.style('display', null); })
+    .on('mouseover', function() { focus.style('display', null); balans.selectAll('.infoBox').style('display', null)})
     .attr('transform', 'translate(' + measures.balans.margin.left + ',' + measures.balans.margin.top + ')')
     .on('mouseout', function() { focus.style('display', 'none');
       d3.selectAll('.info > text')
-        .text('')
+        .text('');
+      balans.selectAll('.infoBox')
+        .style('display', 'none')
     })
     .on('mousemove', function() {mousemoveBalans('balans', x, y, this)})
     .attr('transform', 'translate(' + measures.balans.margin.left + ',' + measures.balans.margin.top + ')')
@@ -116,7 +129,7 @@ function drawBalans() {
 
 function drawPiramide(currentJaar) {
   d3.selectAll('#piramide > *:not(.title):not(.legend)').remove()
-  piramideSubTitle()
+  // piramideSubTitle()
 
   // innerHeight = topHeight - margin.piramide.bottom - margin.piramide.top
   // innerWidth = (rightWidth - margin.piramide.right - margin.piramide.left - margin.piramide.between) / 2
@@ -150,25 +163,32 @@ function drawPiramide(currentJaar) {
     .append("xhtml:span")
     .attr("class", "control glyphicon glyphicon-info-sign");
 
-  info = piramide.append('g')
-    .attr('class', 'info')
-    .attr('transform', 'translate(' + (measures.piramide.width - measures.piramide.margin.right - 100) + ', 20)')
+  piramide.append('foreignObject')
+    .attr('x', measures.piramide.margin.left + measures.piramide.graph.width + measures.piramide.margin.between * 2)
+    .attr('width', 200)
+    .attr('height', 200)
+    .append('xhtml:div')
+    .attr('class', 'infoBox')
 
-  info.append('text')
-    .attr('class', 'infoLeeftijdBox')
-
-  info.append('text')
-    .attr('class', 'infoMannen')
-    .attr('dx', 150)
-
-  info.append('text')
-    .attr('class', 'infoVrouwen')
-    .attr('dx', 150)
-    .attr('dy', 25)
-
-  info.append('text')
-    .attr('class', 'infoTotaalLeeftijd')
-    .attr('dy', 25)
+  // info = piramide.append('g')
+  //   .attr('class', 'info')
+  //   .attr('transform', 'translate(' + (measures.piramide.width - measures.piramide.margin.right - 100) + ', 20)')
+  //
+  // info.append('text')
+  //   .attr('class', 'infoLeeftijdBox')
+  //
+  // info.append('text')
+  //   .attr('class', 'infoMannen')
+  //   .attr('dx', 150)
+  //
+  // info.append('text')
+  //   .attr('class', 'infoVrouwen')
+  //   .attr('dx', 150)
+  //   .attr('dy', 25)
+  //
+  // info.append('text')
+  //   .attr('class', 'infoTotaalLeeftijd')
+  //   .attr('dy', 25)
 
   formatter = labelFormatter(max)
   yLabel = yLabelNamen[formatter]
@@ -227,50 +247,15 @@ function drawPiramide(currentJaar) {
 function drawContributie(jaar) {
   d3.selectAll('#contributie > *:not(.title):not(.legend)').remove()
 
-  contributieSubTitle()
+  // contributieSubTitle()
 
   inkomsten = calcRevenue(leeftijd, premie, jaar)
   uitgaven = calcExpense(leeftijd, bedrag, jaar)
 
   leeftijdInkomsten = {kleur: 'green', waarde: inkomsten - calcRevenue(statusQuoLeeftijd, premie, jaar)}
-  leeftijdInkomstenFormat = labelFormatter(parseInt(leeftijdInkomsten.waarde))
-  if (leeftijdInkomstenFormat > 0) {
-    leeftijdInkomstenLabel = yLabelNamen[leeftijdInkomstenFormat].slice(3)
-  }
-  else {leeftijdInkomstenLabel = ''}
-  if (leeftijdInkomsten.waarde >= 0) {leeftijdInkomstenSlice = 5}
-  else {leeftijdInkomstenSlice = 6}
-  leeftijdInkomstenNumber = leeftijdInkomsten.waarde / ('1' + '0'.repeat(leeftijdInkomstenFormat * 3))
-
   leeftijdUitgaven = {kleur: 'red', waarde: uitgaven - calcExpense(statusQuoLeeftijd, bedrag, jaar)}
-  leeftijdUitgavenFormat = labelFormatter(parseInt(leeftijdUitgaven.waarde))
-  if (leeftijdUitgavenFormat > 0) {
-    leeftijdUitgavenLabel = yLabelNamen[leeftijdInkomstenFormat].slice(3)
-  }
-  else {leeftijdUitgavenLabel = ''}
-  if (leeftijdUitgaven.waarde >= 0) {leeftijdUitgavenSlice = 5}
-  else {leeftijdUitgavenSlice = 6}
-  leeftijdUitgavenNumber = leeftijdUitgaven.waarde / ('1' + '0'.repeat(leeftijdUitgavenFormat * 3))
-
-  bedragUitgaven = {kleur: 'red', waarde: uitgaven - calcExpense(leeftijd, statusQuoAOW, jaar)}
-  bedragUitgavenFormat = labelFormatter(parseInt(bedragUitgaven.waarde))
-  if (bedragUitgavenFormat > 0) {
-    bedragUitgavenLabel = yLabelNamen[bedragUitgavenFormat].slice(3)
-  }
-  else {bedragUitgavenLabel = ''}
-  if (bedragUitgaven.waarde >= 0) {bedragUitgavenSlice = 5}
-  else {bedragUitgavenSlice = 6}
-  bedragUitgavenNumber = bedragUitgaven.waarde / ('1' + '0'.repeat(bedragUitgavenFormat * 3))
-
+  bedragUitgaven = {kleur: 'red', waarde: uitgaven - calcExpense(leeftijd, statusQuoBedrag, jaar)}
   premieInkomsten = {kleur: 'green', waarde: inkomsten - calcRevenue(leeftijd, statusQuoPremie, jaar)}
-  premieInkomstenFormat = labelFormatter(parseInt(premieInkomsten.waarde))
-  if (premieInkomstenFormat > 0) {
-    premieInkomstenLabel = yLabelNamen[premieInkomstenFormat].slice(3)
-  }
-  else {premieInkomstenLabel = ''}
-  if (premieInkomsten.waarde >= 0) {premieInkomstenSlice = 5}
-  else {premieInkomstenSlice = 6}
-  premieInkomstenNumber = premieInkomsten.waarde / ('1' + '0'.repeat(premieInkomstenFormat * 3))
 
   leeftijdVerschil = [leeftijdInkomsten, leeftijdUitgaven]
   verschillen = [leeftijdInkomsten, leeftijdUitgaven, bedragUitgaven, premieInkomsten]
@@ -283,18 +268,56 @@ function drawContributie(jaar) {
     if (verschil.waarde < min) {min = verschil.waarde}
   })
 
-  // innerHeight = bottomHeight - margin.contributie.top - margin.contributie.bottom
-  // innerWidth = leftWidth - margin.contributie.left - margin.contributie.right
-  spaceBetween = 50
-  barWidth = measures.contributie.graph.width / 4 - spaceBetween
-
   if (Math.abs(max) > Math.abs(min)) {
     formatter = labelFormatter(parseInt(max))
   }
   else {
     formatter = labelFormatter(parseInt(Math.abs(min)))
   }
+
   yLabel = yLabelNamen[formatter]
+  // leeftijdInkomstenFormat = labelFormatter(parseInt(leeftijdInkomsten.waarde))
+  // if (leeftijdInkomstenFormat > 0) {
+    // leeftijdInkomstenLabel = yLabelNamen[leeftijdInkomstenFormat].slice(3)
+  // }
+  // else {leeftijdInkomstenLabel = ''}
+  if (leeftijdInkomsten.waarde >= 0) {leeftijdInkomstenSlice = 5}
+  else {leeftijdInkomstenSlice = 6}
+  leeftijdInkomstenNumber = leeftijdInkomsten.waarde / ('1' + '0'.repeat(formatter * 3))
+
+  // leeftijdUitgavenFormat = labelFormatter(parseInt(leeftijdUitgaven.waarde))
+  // if (leeftijdUitgavenFormat > 0) {
+    // leeftijdUitgavenLabel = yLabelNamen[leeftijdInkomstenFormat].slice(3)
+  // }
+  // else {leeftijdUitgavenLabel = ''}
+  if (leeftijdUitgaven.waarde >= 0) {leeftijdUitgavenSlice = 5}
+  else {leeftijdUitgavenSlice = 6}
+  leeftijdUitgavenNumber = leeftijdUitgaven.waarde / ('1' + '0'.repeat(formatter * 3))
+
+  // bedragUitgavenFormat = labelFormatter(parseInt(bedragUitgaven.waarde))
+  // if (bedragUitgavenFormat > 0) {
+    // bedragUitgavenLabel = yLabelNamen[bedragUitgavenFormat].slice(3)
+  // }
+  // else {bedragUitgavenLabel = ''}
+  if (bedragUitgaven.waarde >= 0) {bedragUitgavenSlice = 5}
+  else {bedragUitgavenSlice = 6}
+  bedragUitgavenNumber = bedragUitgaven.waarde / ('1' + '0'.repeat(formatter * 3))
+
+  // premieInkomstenFormat = labelFormatter(parseInt(premieInkomsten.waarde))
+  // if (premieInkomstenFormat > 0) {
+    // premieInkomstenLabel = yLabelNamen[premieInkomstenFormat].slice(3)
+  // }
+  // else {premieInkomstenLabel = ''}
+  if (premieInkomsten.waarde >= 0) {premieInkomstenSlice = 5}
+  else {premieInkomstenSlice = 6}
+  premieInkomstenNumber = premieInkomsten.waarde / ('1' + '0'.repeat(formatter * 3))
+
+
+  // innerHeight = bottomHeight - margin.contributie.top - margin.contributie.bottom
+  // innerWidth = leftWidth - margin.contributie.left - margin.contributie.right
+  spaceBetween = 50
+  barWidth = measures.contributie.graph.width / 4 - spaceBetween
+
 
   x = d3.scale.ordinal()
     .domain(4)
@@ -323,7 +346,7 @@ function drawContributie(jaar) {
 
   info = contributie.append('g')
     .attr('class', 'info infoContributie')
-    .attr('transform', 'translate(' + measures.contributie.margin.left + ', ' + measures.contributie.margin.top + ')')
+    .attr('transform', 'translate(' + measures.contributie.margin.left + ', ' + (measures.contributie.margin.top - 10) + ')')
 
   info.append('text')
     .attr('class', 'info infoLeeftijdRevenue')
@@ -338,13 +361,13 @@ function drawContributie(jaar) {
     .text('')
 
   info.append('text')
-    .attr('class', 'info infoBedrag')
+    .attr('class', 'info infoBedragExpense')
     .attr('dx', (barWidth + spaceBetween) * 2.5)
     .attr('text-anchor', 'middle')
     .text('')
 
   info.append('text')
-    .attr('class', 'info infoPremie')
+    .attr('class', 'info infoPremieRevenue')
     .attr('dx', (barWidth + spaceBetween) * 3.5)
     .attr('text-anchor', 'middle')
     .text('')
@@ -374,6 +397,7 @@ function drawContributie(jaar) {
       .attr('y1', (measures.contributie.margin.top))
       .attr('y2', (measures.contributie.margin.top + measures.contributie.graph.height))
   }
+
   axisContributie()
   var focus = contributie.append('g')
     .attr('class', 'focus focusContributie')
@@ -384,17 +408,17 @@ function drawContributie(jaar) {
     .attr('y', measures.contributie.margin.top)
     .attr('height', measures.contributie.graph.height)
     .attr('width', (barWidth + spaceBetween) * 2)
-    .on('click', function() { console.log(d3.select('.info > .infoLeeftijdRevenue').text())
-      if (d3.select('.info>.infoLeeftijdRevenue').text() == '') {
-        contributie.select('.info>.infoLeeftijdRevenue')
-          .text('€' + String(leeftijdInkomstenNumber).slice(0, leeftijdInkomstenSlice) + leeftijdInkomstenLabel)
-        contributie.select('.info>.infoLeeftijdExpense')
-          .text('€' + String(leeftijdUitgavenNumber).slice(0, leeftijdUitgavenSlice) + leeftijdUitgavenLabel)
+    .on('click', function() {
+      if (d3.select('.infoLeeftijdRevenue').text() == '') {
+        contributie.select('.infoLeeftijdRevenue')
+          .text(String(leeftijdInkomstenNumber).slice(0, leeftijdInkomstenSlice))
+        contributie.select('.infoLeeftijdExpense')
+          .text(String(leeftijdUitgavenNumber).slice(0, leeftijdUitgavenSlice))
       }
       else {
-        contributie.select('.info>.infoLeeftijdRevenue')
+        contributie.select('.infoLeeftijdRevenue')
           .text('')
-        contributie.select('.info>.infoLeeftijdExpense')
+        contributie.select('.infoLeeftijdExpense')
           .text('')
       }
     })
@@ -406,12 +430,12 @@ function drawContributie(jaar) {
     .attr('height', measures.contributie.graph.height)
     .attr('width', barWidth + spaceBetween)
     .on('click', function() {
-      if (d3.select('.info>.infoBedrag').text() == '') {
-        contributie.select('.info>.infoBedrag')
-          .text('€' + String(bedragUitgavenNumber).slice(0, bedragUitgavenSlice) + bedragUitgavenLabel)
+      if (d3.select('.infoBedragExpense').text() == '') {
+        contributie.select('.infoBedragExpense')
+          .text(String(bedragUitgavenNumber).slice(0, bedragUitgavenSlice))
       }
       else {
-        contributie.select('.info>.infoBedrag')
+        contributie.select('.infoBedragExpense')
           .text('')
       }
     })
@@ -422,13 +446,13 @@ function drawContributie(jaar) {
     .attr('y', measures.contributie.margin.top)
     .attr('height', measures.contributie.graph.height)
     .attr('width', barWidth + spaceBetween)
-    .on('click', function() {
-      if (d3.select('.info>.infoPremie').text() == '') {
-        contributie.select('.info>.infoPremie')
-          .text('€' + String(premieInkomstenNumber).slice(0, premieInkomstenSlice) + premieInkomstenLabel)
+    .on('click', function() {console.log(d3.select('.infoPremieRevenue').text())
+      if (d3.select('.infoPremieRevenue').text() == '') {
+        contributie.select('.infoPremieRevenue')
+          .text(String(premieInkomstenNumber).slice(0, premieInkomstenSlice))
       }
       else {
-        contributie.select('.info>.infoPremie')
+        contributie.select('.info>.infoPremieRevenue')
           .text('')
       }
     })
