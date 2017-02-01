@@ -8,7 +8,7 @@ function calcRevenue(leeftijd, premie, jaar) {
   werkenden = 0
   rev = 0
 
-  for (i = leeftijd - 50; i < leeftijd; i++) {
+  for (i = 0; i < leeftijd; i++) {
     werkenden = parseInt(leeftijdsVerdeling[jaar]['leeftijden'][i]['mannen en vrouwen'])
                 * (werkloosheid[i] / 100)
 

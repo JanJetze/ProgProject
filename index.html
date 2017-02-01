@@ -6,15 +6,12 @@
   <link rel='stylesheet' type='text/css' href='css/bootstrap.css'>
   <link rel='stylesheet' type='text/css' href='css/stylesheet.css'>
   <script src='javascript/d3.v3.min.js'></script>
-  <script src='javascript/d3.tip.v0.6.3.js'></script>
   <script src='javascript/queue.v1.min.js'></script>
   <script src='javascript/d3.slider.js'></script>
-  <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
-  <!-- <script src="http://d3js.org/queue.v1.min.js"></script> -->
-  <!-- <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script> -->
-  <script src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.js'></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.0/bootstrap-slider.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.0/css/bootstrap-slider.css" />
+  <script src='javascript/jquery-2.2.4.js'></script>
+  <!-- <script src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.js'></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.0/bootstrap-slider.js"></script> -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.0/css/bootstrap-slider.css" /> -->
 </head>
 <body>
   <table id="load">
@@ -81,7 +78,7 @@
           <ul class='dropdown-menu'>
             <li>
               in procenten
-              <input id='premieKeuze' type='number' step='0.01' placeholder='premie'>
+              <input id='premieKeuze' type='number' step='0.1' placeholder='premie'>
             </li>
             <li>
               <input class='berekenKeuze' id='berekenPremie' type='submit' value='bereken'>
@@ -143,7 +140,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel"></h4>
+          <h3 class="modal-title" id="myModalLabel"></h3>
         </div>
         <div class="modal-body">
         </div>

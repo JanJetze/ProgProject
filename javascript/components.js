@@ -9,15 +9,6 @@ function balansTitle() {
     .html('<h3>Balans</h3>')
 }
 
-function balansSubTitle() {
-  balans.append('text')
-    .attr('class', 'subTitle')
-    .attr('id', 'balansSubTitle')
-    .attr('x', (measures.balans.width / 4) + measures.balans.margin.left)
-    .attr('y', (measures.balans.margin.top / 2))
-    .text('Balans SubTitel')
-}
-
 function piramideTitle() {
   piramide.append('foreignObject')
     .attr('class', 'title')
@@ -27,15 +18,6 @@ function piramideTitle() {
     .attr('x', measures.piramide.margin.left)
     .append('xhtml:body')
     .html('<h3>Bevolkings piramide</h3>')
-}
-
-function piramideSubTitle() {
-  piramide.append('text')
-    .attr('class', 'subTitle')
-    .attr('id', 'piramideSubTitle')
-    .attr('x', (measures.piramide.width / 4) + measures.piramide.margin.left)
-    .attr('y', measures.piramide.margin.top / 2)
-    .text('Jaar: ' + currentJaar)
 }
 
 function contributieTitle() {
@@ -140,28 +122,32 @@ function axisContributie() {
   contributie.append('g')
     .attr('class', 'axis')
     .attr('id', 'yAxis')
-    .attr('transform', 'translate(' + measures.contributie.margin.left + ', ' + measures.contributie.margin.top + ')')
+    .attr('transform', 'translate(' + measures.contributie.margin.left + ', '
+                                    + measures.contributie.margin.top + ')')
     .call(yAxis)
 
   contributie.append('text')
     .attr('class', 'yLabel label')
     .attr('text-anchor', 'middle')
     .attr('y', (measures.contributie.margin.left / 2))
-    .attr('x', -(measures.contributie.margin.top + (measures.contributie.graph.height / 2)))
+    .attr('x', -(measures.contributie.margin.top
+               + (measures.contributie.graph.height / 2)))
     .attr('transform', 'rotate(-90)')
     .text(yLabel)
 
   contributie.append('g')
     .attr('class', 'axis')
     .attr('id', 'xAxis')
-    .attr('transform', 'translate(' + measures.contributie.margin.left + ', ' + (y(0) + measures.contributie.margin.top) + ')')
+    .attr('transform', 'translate(' + measures.contributie.margin.left + ', '
+                            + (y(0) + measures.contributie.margin.top) + ')')
     .call(xAxis)
 
   contributie.append('text')
     .attr('class', 'xLabel label')
     .attr('text-anchor', 'middle')
     .attr('y', measures.contributie.height - (measures.contributie.margin.bottom / 4))
-    .attr('x', barWidth + measures.contributie.margin.between + measures.contributie.margin.left)
+    .attr('x', barWidth + measures.contributie.margin.between
+                        + measures.contributie.margin.left)
     .text('leeftijd')
 
   contributie.append('text')
@@ -175,7 +161,8 @@ function axisContributie() {
     .attr('class', 'xLabel label')
     .attr('text-anchor', 'middle')
     .attr('y', measures.contributie.height - (measures.contributie.margin.bottom / 4))
-    .attr('x', (barWidth + measures.contributie.margin.between) * 3.5 + measures.contributie.margin.left)
+    .attr('x', (barWidth + measures.contributie.margin.between) * 3.5
+               + measures.contributie.margin.left)
     .text('premie')
 
   d3.selectAll('#yAxis > .tick')[0][0].remove()
@@ -209,33 +196,45 @@ function axisPiramide() {
   piramide.append('g')
     .attr('class', 'axis')
     .attr('id', 'yAxis')
-    .attr('transform', 'translate(' + (measures.piramide.margin.left + measures.piramide.graph.width) + ', ' + measures.piramide.margin.top + ')')
+    .attr('transform', 'translate(' + (measures.piramide.margin.left
+                                    + measures.piramide.graph.width) + ', '
+                                    + measures.piramide.margin.top + ')')
     .call(yAxis)
 
   piramide.append('g')
     .attr('class', 'axis xAxis')
     .attr('id', 'xAxisVrouw')
-    .attr('transform', 'translate(' + measures.piramide.margin.left + ', ' + (measures.piramide.margin.top + measures.piramide.graph.height) + ')')
+    .attr('transform', 'translate(' + measures.piramide.margin.left + ', '
+                                    + (measures.piramide.margin.top
+                                    + measures.piramide.graph.height) + ')')
     .call(xAxisVrouw)
 
   piramide.append('g')
     .attr('class', 'axis xAxis')
     .attr('id' , 'xAxisMan')
-    .attr('transform', 'translate(' + (measures.piramide.margin.left + measures.piramide.graph.width + (2 * measures.piramide.margin.between)) + ', ' + (measures.piramide.margin.top + measures.piramide.graph.height) + ')')
+    .attr('transform', 'translate(' + (measures.piramide.margin.left
+                                    + measures.piramide.graph.width
+                                    + (2 * measures.piramide.margin.between))
+                                    + ', ' + (measures.piramide.margin.top
+                                    + measures.piramide.graph.height) + ')')
     .call(xAxisMan)
 
   piramide.append("text")
     .attr("class", "xLabel label")
     .attr("text-anchor", "start")
     .attr("x", (measures.piramide.margin.left))
-    .attr("y", measures.piramide.graph.height + measures.piramide.margin.top + measures.piramide.margin.bottom - 10)
+    .attr("y", measures.piramide.graph.height
+               + measures.piramide.margin.top
+               + measures.piramide.margin.bottom - 10)
     .text('vrouwen ' + yLabel.slice(1));
 
   piramide.append("text")
     .attr("class", "xLabel label")
     .attr("text-anchor", "end")
     .attr("x", (measures.piramide.width - measures.piramide.margin.right))
-    .attr("y", measures.piramide.graph.height + measures.piramide.margin.top + measures.piramide.margin.bottom - 10)
+    .attr("y", measures.piramide.graph.height
+               + measures.piramide.margin.top
+               + measures.piramide.margin.bottom - 10)
     .text('mannen ' + yLabel.slice(1));
 }
 
@@ -257,19 +256,23 @@ function axisBalans(x, y) {
 
   balans.append('g')
     .attr('class', 'axis xaxis')
-    .attr('transform', 'translate(' + measures.balans.margin.left + ', ' + (measures.balans.height - measures.balans.margin.bottom) + ')')
+    .attr('transform', 'translate(' + measures.balans.margin.left + ', '
+                                    + (measures.balans.height
+                                    - measures.balans.margin.bottom) + ')')
     .call(xAxis)
 
   balans.append('g')
     .attr('class', 'axis yaxis')
-    .attr('transform', 'translate(' + measures.balans.margin.left + ', ' + measures.balans.margin.top + ')')
+    .attr('transform', 'translate(' + measures.balans.margin.left + ', '
+                                    + measures.balans.margin.top + ')')
     .call(yAxis)
 
   balans.append("text")
     .attr("class", "xLabel label")
     .attr("text-anchor", "end")
     .attr("x", (measures.balans.graph.width + measures.balans.margin.left) / 2)
-    .attr("y", measures.balans.graph.height + measures.balans.margin.top + measures.balans.margin.bottom - 10)
+    .attr("y", measures.balans.graph.height + measures.balans.margin.top
+               + measures.balans.margin.bottom - 10)
     .text("jaartallen");
 
   balans.append('text')

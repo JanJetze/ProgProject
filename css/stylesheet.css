@@ -161,3 +161,12 @@ td {
 .focusContributie {
   fill: transparent;
 }
+
+.modal-body {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.modal {
+  overflow-y: auto;
+}
