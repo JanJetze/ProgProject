@@ -155,7 +155,7 @@ function axisContributie() {
     .attr('text-anchor', 'middle')
     .attr('y', measures.contributie.height - (measures.contributie.margin.bottom / 4))
     .attr('x', (barWidth + measures.contributie.margin.between) * 2.5 + measures.contributie.margin.left)
-    .text('bedrag')
+    .text('AOW')
 
   contributie.append('text')
     .attr('class', 'xLabel label')
