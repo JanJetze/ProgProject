@@ -91,39 +91,6 @@ function legendBalans() {
     .text('inkomsten')
 }
 
-// function legendPiramide() {
-//   var legendPiramide = piramide.append('g')
-//     .attr('class', 'legend')
-//
-//   legendPiramide.append('rect')
-//     .attr('class', 'legendBox vrouw')
-//     .attr('width', legendBox.width)
-//     .attr('height', legendBox.height)
-//     .attr('x', measures.piramide.width - 50)
-//     .attr('y', (measures.piramide.height / 2) - 50)
-//
-//   legendPiramide.append('text')
-//     .attr('class', 'legendText')
-//     .attr('text-anchor', 'end')
-//     .attr('x', measures.piramide.width - 60)
-//     .attr('y', (measures.piramide.height / 2) - 25)
-//     .text('vrouwen')
-//
-//   legendPiramide.append('rect')
-//     .attr('class', 'legendBox man')
-//     .attr('width', legendBox.width)
-//     .attr('height', legendBox.height)
-//     .attr('x', measures.piramide.width - 50)
-//     .attr('y', (measures.piramide.height / 2) + 10)
-//
-//   legendPiramide.append('text')
-//     .attr('class', 'legendText')
-//     .attr('text-anchor', 'end')
-//     .attr('x', measures.piramide.width - 60)
-//     .attr('y', (measures.piramide.height / 2) + 35)
-//     .text('mannen')
-// }
-
 function legendContributie() {
   var legendContributie = contributie.append('g')
     .attr('class', 'legend')
@@ -194,21 +161,21 @@ function axisContributie() {
     .attr('class', 'xLabel label')
     .attr('text-anchor', 'middle')
     .attr('y', measures.contributie.height - (measures.contributie.margin.bottom / 4))
-    .attr('x', barWidth + spaceBetween + measures.contributie.margin.left)
+    .attr('x', barWidth + measures.contributie.margin.between + measures.contributie.margin.left)
     .text('leeftijd')
 
   contributie.append('text')
     .attr('class', 'xLabel label')
     .attr('text-anchor', 'middle')
     .attr('y', measures.contributie.height - (measures.contributie.margin.bottom / 4))
-    .attr('x', (barWidth + spaceBetween) * 2.5 + measures.contributie.margin.left)
+    .attr('x', (barWidth + measures.contributie.margin.between) * 2.5 + measures.contributie.margin.left)
     .text('bedrag')
 
   contributie.append('text')
     .attr('class', 'xLabel label')
     .attr('text-anchor', 'middle')
     .attr('y', measures.contributie.height - (measures.contributie.margin.bottom / 4))
-    .attr('x', (barWidth + spaceBetween) * 3.5 + measures.contributie.margin.left)
+    .attr('x', (barWidth + measures.contributie.margin.between) * 3.5 + measures.contributie.margin.left)
     .text('premie')
 
   d3.selectAll('#yAxis > .tick')[0][0].remove()
@@ -312,5 +279,4 @@ function axisBalans(x, y) {
     .attr('x', -((measures.balans.graph.height + measures.balans.margin.top) / 2))
     .attr('transform', 'rotate(-90)')
     .text(yLabel)
-
 }

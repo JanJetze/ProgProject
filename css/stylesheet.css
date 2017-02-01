@@ -1,17 +1,7 @@
-body {
-  background-color: #f0f0f0;
+/*loading screen*/
+#main {
+  visibility: hidden;
 }
-.visualisation, #slider, h3 {
-  background-color: white;
-}
-
-td {
-  text-align: right;
-}
-
-/*.glyphi.pause {
-  display: none;
-}*/
 
 #load {
   width: 100%;
@@ -19,19 +9,41 @@ td {
   font-size: 30px;
 }
 
-.glyphicon-pause {
-  display: none;
-}
-
-.buttons {
-  /*clear:both;*/
-}
-
 #load td {
   vertical-align: middle;
   text-align: center;
 }
 
+.glyphicon-refresh-animate {
+  -animation: spin .7s infinite linear;
+  -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+  from { -webkit-transform: rotate(0deg);}
+  to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg);}
+  to { transform: scale(1) rotate(360deg);}
+}
+
+/*background colors*/
+body {
+  background-color: #f0f0f0;
+}
+
+.visualisation, #slider, h3 {
+  background-color: white;
+}
+
+/*infoboxes*/
+td {
+  text-align: right;
+}
+
+/*menu*/
 #jaartal, #jaartalDiv {
   font-size: 20px;
   color: #f5f5f5;
@@ -41,10 +53,16 @@ td {
   display: inline
 }
 
-#currentJaar {
-  font-size: 30px;
+
+
+
+
+.glyphicon-pause {
+  display: none;
 }
 
+
+/*buttons*/
 .berekenKeuze, .resetKeuze {
   display: inline-block;
   float: left;
@@ -81,47 +99,15 @@ td {
   color: #f5f5f5;
 }
 
-/*#sliderJaren {*/
-  /*width: 900px;*/
-/*}*/
-
 .btn:hover {
   background-color: #dcdcdc;
-}
-
-.glyphicon-refresh-animate {
-    -animation: spin .7s infinite linear;
-    -webkit-animation: spin2 .7s infinite linear;
-}
-
-@-webkit-keyframes spin2 {
-    from { -webkit-transform: rotate(0deg);}
-    to { -webkit-transform: rotate(360deg);}
-}
-
-@keyframes spin {
-    from { transform: scale(1) rotate(0deg);}
-    to { transform: scale(1) rotate(360deg);}
-}
-
-#main {
-  visibility: hidden;
 }
 
 .alert {
   display: none;
 }
 
-/*#piramide, #balans {
-  display: inline-block;
-  position: relative;
-}*/
-
-.overlay {
-  fill: none;
-  pointer-events: all;
-}
-
+/*graphs*/
 .axis path,
 .axis line {
   fill: none;
@@ -137,6 +123,11 @@ td {
 #balans > .line {
   fill: none;
   stroke-width: 5px;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
 }
 
 .expenses {
@@ -169,67 +160,4 @@ td {
 
 .focusContributie {
   fill: transparent;
-}
-
-/*.infoContributie > .info {
-  visibility: hidden;
-}*/
-/*.focus {
-  display: none;
-}
-
-.crosshair {
-  stroke: grey;
-}*/
-
-.svg-container {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  padding-bottom: 25%; /* aspect ratio */
-  vertical-align: top;
-  overflow: hidden;
-}
-.svg-content-responsive {
-  display: inline-block;
-  position: absolute;
-  top: 10px;
-  left: 0;
-}
-
-.svg-content {
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.track,
-.track-inset,
-.track-overlay {
-  stroke-linecap: round;
-}
-
-.track {
-  stroke: #000;
-  stroke-opacity: 0.3;
-  stroke-width: 10px;
-}
-
-.track-inset {
-  stroke: #ddd;
-  stroke-width: 8px;
-}
-
-.track-overlay {
-  pointer-events: stroke;
-  stroke-width: 50px;
-  cursor: crosshair;
-}
-
-.handle {
-  fill: #fff;
-  stroke: #000;
-  stroke-opacity: 0.5;
-  stroke-width: 1.25px;
 }
