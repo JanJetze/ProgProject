@@ -1,42 +1,36 @@
-# ProgProject
+De visualisatie over de toekomst van de AOW laat de gebruiker op de stoel van de beleidsmaker zitten. Door de variabelen te kunnen veranderen die de inkomsten en uitgaven voor de Nederlandse overheid uit het AOW-stelsel bepalen, krijgt de gebruiker meer inzicht in de onhoudbare situatie van de AOW.
 
-Deze visualisatie maakt het mogelijk voor de gebruiker een ideale verdeling te vinden voor 3 verschillende parameters met betrekking tot het Nederlandse AOW-stelsel. De 3 parameters zijn de AOW-leeftijd, de premie en het bedrag dat wordt uitgekeerd bij het bereiken van de AOW-leeftijd.
+##Visualisatie
+![](doc/screenshot.png)
+Deze pagina bestaat uit drie grafieken en twee control elementen. Twee van deze grafieken, de balans en de contributie, geven de gevolgen voor de staatskas weer van een verandering in de variabelen. De derde grafiek, de bevolkingspiramide, geeft inzicht in de herkomst van de onhoudbare situatie rondom het AOW, namelijk de vergrijzing.
 
-Door een makkelijk en speelse visualisatie te maken van mogelijke combinaties van deze parameters, wordt het probleem rondom de AOW (het tekort aan middelen om iedereen te kunnen blijven betalen) zichtbaar en wordt de kans geboden met andere mogelijke oplossingen te komen voor dit probleem.
+Het eerste control element zijn de variabelen in de menubalk. Door deze te veranderen, veranderen ook de grafieken balans en contributie en zijn direct de gevolgen zichtbaar van deze beleidswijziging. Het tweede control element, de slider rechtsonder, laat de gebruiker automatisch door de jaren heenlopen. Iedere keer worden zowel de contributie als de bevolkingspiramide aangepast. Deze functionaliteit laat met name de vergrijzing door de jaren heen zien.
 
-## de visualisatie
-![](doc/schets.jpeg)
-Deze visualisatie bestaat uit 4 onderdelen die onderling gelinkt zijn. Deze 4 onderdelen worden in 1 scherm opgedeeld in 4 rechthoeken. Verder zijn er 3 sliders die het getal van de eerder genoemde parameters kan veranderen.
+##Header
+![](doc/header.png)
+In de *header* kunnen de variabelen worden aangepast en wordt het jaartal getoond van twee van de drie grafieken. Wanneer op een van de drie variabelen wordt geklikt, verschijnt een dropdownmenu waarin de meeteenheid wordt weergegeven en een tekstvlak om een nieuwe waarde in te voeren. Wanneer een nieuwe waarde wordt ingevoerd, zullen ook de grafieken opnieuw worden getekend.
 
-Linksboven worden de inkomsten en uitgaven aan AOW in een lijndiagram tegen elkaar weggezet, met op de x-as jaartallen. Wanneer een parameter wordt veranderd, wijzigt ook deze grafiek. Ook kan hier een jaartal worden geselecteerd wat effect zal hebben op de getoonde informatie in de overige 3 onderdelen.
+##Balans
+![](doc/balans.png)
+Zodra een van de variabelen wordt gewijzigd, wordt ook deze grafiek aangepast.
 
-Het onderdeel rechtsboven is een bevolkingspiramide. Deze toont standaard de bevolkingspiramide voor het huidige jaar (2017) maar veranderd wanneer in onderdeel 1 een bepaald jaartal wordt geselecteerd.
+Wanneer met de muis binnen het kader van de x- en y-as wordt bewogen, beweegt een verticale lijn met de muis mee die van jaar tot jaar springt. Boven deze streep staat het jaartal waar de muis zich bevindt. In de rechterbovenhoek verschijnen de gegevens die bij dit jaartal horen.
 
-Linksonder wordt een staafdiagram getoond met daarin 3 groepen van elk 2 datapunten. Elk van deze groep laat voor zowel de inkomsten als de uitgaven aan AOW, zien wat het verschil is met de parameters die op dit moment gelden. Hier kan nog gekozen worden of dit voor het geselecteerde jaar moet worden laten zien, hetzelfde als bij de bevolkingspiramide, of voor een langere tijdsspanne.
+Wanneer met de muis geklikt wordt binnen het kader van de x- en y-as, wordt het weergegeven jaartal in aangepast en worden de bijbehorende grafieken opnieuw getekend.
 
-Rechtsonder staan als laatste nog wat gegevens over het geselecteerde jaar. Op het startscherm zal hier niets staan.
+##Piramide
+![](doc/piramide.png)
+De *piramide* geeft de geschatte bevolkingsopbouw voor een bepaald jaar van Nederland weer. Het weergegeven jaartal is te zien in de menubalk. Wanneer het jaartal verandert, wijzigt deze grafiek ook automatisch.
 
-## data
-Voor deze visualisatie zijn verschillende datasets en ook databronnen nodig. Allereerst is er een dataset nodig waarin een prognose wordt gegeven van de leeftijdsverdeling van de Nederlandse bevolking voor de komende jaren. Deze dataset is te vinden via het CBS.
+Wanneer de muis over de *piramide* beweegt zal de staaf waar de muis zich boven bevindt, veranderen van kleuren. Daarnaast zal rechtsboven in de visualisatie informatie verschijnen over deze leeftijdsgroep.
 
-Verder is er data nodig over de huidige AOW-leeftijd, het bedrag en de premie. Deze gegevens zijn te vinden via de site van de rijksoverheid. Het enige probleem hieraan is dat de regels wat betreft AOW, erg complex kunnen worden. Voor nu zal ik dus een versimpelde versie nemen waarin iedereen hetzelfde bedrag krijgt, ongeacht status etc.
+##Contributie
+![](doc/contributie.png)
+Deze visualisatie toont de opbouw van veranderingen in *balans* wanneer een variabele is gewijzigd. Het geeft voor elk van de drie variabelen weer of, door het wijzigen van deze variabele, de inkomsten en/of uitgaven stijgen dan wel dalen.
 
-Met de datasets met leeftijden kan ik in ieder geval al de bevolkingspiramide maken. Deze dataset gecombineerd met het (vereenvoudigde) AOW-bedrag kan de uitgaven weergeven in de visualisatie linksboven. De visualisatie linksonder kan, zodra zowel de inkomsten als uitgaven berekend zijn, gemakkelijk worden gemaakt door het huidige jaartal en het geselecteerde jaartal te vergelijken. Verder komt de informatie rechtsonder direct uit de gebruikte datasets.
+Opnieuw is het jaartal waar deze visualisatie zich op baseert te zien in de menubalk.
 
-Het enige probleem zit dus nog in de inkomsten uit de premies. Aangezien de AOW-premie een percentage is van het brutoloon tot een bepaald maximum, is hiervoor eigenlijk een verdeling nodig van het inkomen per leeftijd. Aan de hand van deze verdeling kan dan worden berekend hoeveel premie erbij komt of verdijnt bij een verandering van de AOW-leeftijd en/of de premie. Het vinden van deze verdeling blijkt echter erg lastig. Wellicht kan hiervoor ook gebruik worden gemaakt van een versimpelde schatting zoals ook voor het AOW-bedrag, die deze premie voor iedereen gelijk maakt.
+Wanneer in de grafiek geklikt wordt zal boven de desbetreffende staaf info verschijnen over hoeveel de inkomensten en/of uitgaven zijn gestegen of gedaald.
 
-De verkregen data zal worden omgezet naar een JSON file zodat deze gemakkelijk kan worden ingelezen in javascript. Binnen deze JSON file wordt de data gestald in de vorm van nested dictionaries beginnende bij een aparte dictionary voor elk jaartal.
-
-## vergelijkbare visualisaties
-Ik heb nog geen vergelijkbare visualisaties kunnen vinden. Wel zijn er al een hoop websites waar kan worden opgevraagd vanaf welke leeftijd iemand met een bepaalde geboortedatum AOW ontvangt. Deze site werken allemaal met een simpele optie om je geboortedatum in te voeren en vervolgens wordt dan de leeftijd getoond waarop AOW wordt ontvangen.
-
-Ook zijn er al wel visualisaties die het probleem rondom AOW schetsen. Zo zijn er ook al een hoop filmpjes die tonen wat er gebeurt wanneer er niets verandert.
-
-Maar een visualisatie als hierboven omschreven, waar de gebruiker alle gevolgen direct kan zien van een verandering een van de parameters, heb ik nog niet kunnen vinden.
-
-## bronnen
-data/leeftijdPrognose.csv, 11-01-2017
-http://statline.cbs.nl/Statweb/publication/?VW=D&DM=SLNL&PA=83597NED&D1=0&D2=a&D3=0-100&D4=a&HD=170111-2115&HDR=T,G3&STB=G1,G2
-
-data/werkloosheid2003tot2015.csv, 11-01-2017
-http://statline.cbs.nl/Statweb/publication/?VW=D&DM=SLNL&PA=80590ned&D1=9&D2=1-3&D3=0&D4=12,25,38,51,64,77,90,103,116,129,142,155,168&HD=170111-2135&HDR=T,G1&STB=G2,G3
+##Slider
+Met de slider rechtsonder op de pagina kan het jaartal worden gewijzigd waar de *piramide* en *contributie* voor getekend worden. Naast enkel het jaartal te veranderen, kan ook van het huidige jaartal af tot aan 2060 de ontwikkelingen gezien worden. Dit kan met behulp van de afspeelknop, die beide grafieken iedere seconde update. Wanneer vervolgens op de pauzeknop wordt geklikt, blijven het jaartal en de grafieken hangen in het tot dan toe bereikte jaartal.
