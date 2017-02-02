@@ -1,8 +1,17 @@
+'''
+  Jan Jetze Beitler
+  10416641
+
+  Minor Programmeren
+  importInkomensKlassen.py
+
+  data-source:
+  http://statline.cbs.nl/Statweb/publication/?VW=T&DM=SLNL&PA=71510ned&D1=0&D2=0&D3=0,8-31&D4=0&D5=0&D6=0,17-34&D7=l&HD=170122-1928&HDR=T,G6,G1,G5,G3,G4&STB=G2
+
+'''
+
 import csv
 import json
-
-
-# http://statline.cbs.nl/Statweb/publication/?VW=T&DM=SLNL&PA=71510ned&D1=0&D2=0&D3=0,8-31&D4=0&D5=0&D6=0,17-34&D7=l&HD=170122-1928&HDR=T,G6,G1,G5,G3,G4&STB=G2
 
 csv_file = open('inkomensKlassen.csv', 'r')
 json_file = open('inkomensKlassen.json', 'w')

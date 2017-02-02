@@ -1,3 +1,11 @@
+/*
+ * Jan Jetze Beitler
+ * 10416641
+ *
+ * Minor Programmeren
+ * graphs.js
+ */
+
 function drawBalans() {
   /* function to draw balans including information boxes and interaction */
 

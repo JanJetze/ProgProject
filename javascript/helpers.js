@@ -1,3 +1,11 @@
+/*
+ * Jan Jetze Beitler
+ * 10416641
+ *
+ * Minor Programmeren
+ * helpers.js
+ */
+
 function calcRevenue(leeftijd, premie, jaar) {
   /* calculate revenue with given variables for one year
    * calculate for each age group number of workers

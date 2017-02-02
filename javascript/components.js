@@ -1,3 +1,11 @@
+/*
+ * Jan Jetze Beitler
+ * 10416641
+ *
+ * Minor Programmeren
+ * components.js
+ */
+
 function balansTitle() {
   balans.append('foreignObject')
     .attr('class', 'title')
@@ -29,15 +37,6 @@ function contributieTitle() {
     .attr('x', measures.contributie.margin.left)
     .append('xhtml:body')
     .html('<h3>Contributie</h3>')
-}
-
-function contributieSubTitle() {
-  contributie.append('text')
-    .attr('class', 'subTitle')
-    .attr('id', 'contributieSubTitle')
-    .attr('x', (measures.contributie.width / 4) + measures.contributie.margin.left)
-    .attr('y', measures.contributie.margin.top / 2)
-    .text('Jaar: ' + currentJaar)
 }
 
 function legendBalans() {
@@ -154,7 +153,8 @@ function axisContributie() {
     .attr('class', 'xLabel label')
     .attr('text-anchor', 'middle')
     .attr('y', measures.contributie.height - (measures.contributie.margin.bottom / 4))
-    .attr('x', (barWidth + measures.contributie.margin.between) * 2.5 + measures.contributie.margin.left)
+    .attr('x', (barWidth + measures.contributie.margin.between) * 2.5
+                         + measures.contributie.margin.left)
     .text('AOW')
 
   contributie.append('text')

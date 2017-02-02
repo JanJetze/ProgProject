@@ -1,3 +1,14 @@
+'''
+  Jan Jetze Beitler
+  10416641
+
+  Minor Programmeren
+  importLeeftijden.py
+
+  data-source:
+  http://statline.cbs.nl/Statweb/publication/?VW=D&DM=SLNL&PA=83597NED&D1=0&D2=a&D3=0-100&D4=a&HD=170202-1817&HDR=T,G3&STB=G1,G2
+'''
+
 import csv
 import json
 

@@ -1,4 +1,12 @@
-var jaartallen = 0,
+/*
+ * Jan Jetze Beitler
+ * 10416641
+ *
+ * Minor Programmeren
+ * main.js
+ */
+
+  var jaartallen = 0,
     currentJaar = 2017,
     maxPremieTeBetalen = 6048,
     yLabelNamen = ['euro\'s', '€ x duizend', '€ x miljoen', '€ x miljard', '€ x biljoen', '€ x biljard'],
@@ -97,6 +105,7 @@ contributieTitle()
 legendBalans()
 legendContributie()
 
+
 queue()
   .defer(d3.json, "data/leeftijdPrognose.json")
   .defer(d3.json, "data/werkloosheid.json")
@@ -110,7 +119,7 @@ function mainLoop(error, file1, file2, file3) {
     d3.select('.alert-danger')
       .style('display', 'block')
   }
-
+  else {
   d3.select('#load')
     .style('display', 'none')
   d3.select('#main')
@@ -145,11 +154,6 @@ function mainLoop(error, file1, file2, file3) {
 
   slider.callback(myFn)
 
-  drawBalans()
-
-  drawPiramide(currentJaar)
-
-  drawContributie(currentJaar)
 
   d3.selectAll('.berekenKeuze').on('click', function() {
     variableUpperCase = (this.id).slice(7, (this.id).length)
@@ -187,4 +191,10 @@ function mainLoop(error, file1, file2, file3) {
     drawBalans();
     drawContributie(currentJaar);
   })
+  drawBalans()
+
+  drawPiramide(currentJaar)
+
+  drawContributie(currentJaar)
+}
 }
