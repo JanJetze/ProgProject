@@ -1,9 +1,9 @@
 infoGlyphiBalans =
 '<h4>Visualisatie</h4>' +
-'<p>Deze visualisatie toont u de inkomsten en de uitgaven van het Nederlandse AOW-stelsel per jaar. Zoals te zien is, zal volgens deze berekeningen het tekort in 2040 blijven steken op 17 miljard euro. Wanneer één van de variabelen in de menubalk worden aangepast, worden de getoonde inkomsten en uitgaven ook direct verandert.</p>' +
+'<p>Deze visualisatie toont u de inkomsten en de uitgaven van het Nederlandse AOW-stelsel per jaar. Zoals te zien is, zal volgens deze berekeningen het tekort in 2040 blijven steken op 17 miljard euro. Wanneer één van de variabelen in de menubalk worden aangepast, worden de getoonde inkomsten en uitgaven ook direct veranderd.</p>' +
 '<br><h4>Berekening</h4>' +
-'<p>Voor de berekening van de inkomsten wordt eerst voor iedere leeftijd het aantal werkende personen berekent. Vervolgens wordt dit aantal verdeeld over de inkomens naar percentage voortgekomen uit de berekeningen van de dataset over de inkomensklasse. Voor iedere inkomensklasse wordt de premie berekent en getest over deze niet de maximale premie overschrijdt. Alle premies van iedere inkomensklasse in elke leeftijd worden bij elkaar opgeteld en vormen samen de inkomsten uit AOW-premies voor de Nederlandse staat.</p>' +
-'<p>Voor de uitgaven is het aantal AOW-gerechtigden bij elkaar opgeteld en dit aantal vermenigvuldigt met het voltallige AOW-bedrag dat zij per jaar uitgekeerd krijgen.</p>' +
+'<p>Voor de berekening van de inkomsten wordt eerst voor iedere leeftijd het aantal werkende personen berekend. Vervolgens wordt dit aantal verdeeld over de inkomens naar percentage voortgekomen uit de berekeningen van de dataset over de inkomensklasse. Voor iedere inkomensklasse wordt de premie berekend en getest of deze niet de maximale premie overschrijdt. Alle premies van iedere inkomensklasse in elke leeftijd worden bij elkaar opgeteld en vormen samen de inkomsten uit AOW-premies voor de Nederlandse staat.</p>' +
+'<p>Voor de uitgaven is het aantal AOW-gerechtigden bij elkaar opgeteld en dit aantal vermenigvuldigd met het voltallige AOW-bedrag dat zij per jaar uitgekeerd krijgen.</p>' +
 '<br><h4>Foutmarges</h4>' +
 '<p>Wat betreft de uitgaven is voor deze visualisaties gekozen om het AOW-bedrag gelijk te trekken voor alleenstaanden en samenwonenden. Hier is voor gekozen omdat er weinig tot geen data is over de verhoudingen van alleenstaanden versus samenwonenden en een schatting uit het verleden zeer onbetrouwbaar is</p>' +
 '<br><h4>Gebruik</h4>' +
@@ -20,7 +20,7 @@ infoGlyphiContributie =
 '<p>Deze visualisatie toont u welke variabelen hebben bijgedragen aan de verandering in de <i>balans</i>. Wanneer u een variabele niet heeft gewijzigd ten opzichte van het basisjaar, zal die variabele in deze grafiek ook een nul-waarde tonen.</p>' +
 '<p>Voor de variabele <i>leeftijd</i> wordt in deze grafiek zowel het verschil in inkomsten als in uitgaven getoond. Voor de variabelen <i>AOW</i> en <i>premie</i> wordt respectievelijk enkel het verschil in inkomsten en uitgaven getoond. Dit omdat deze variabelen verder geen invloed hebben op de uitgaven dan wel de inkomsten.</p>' +
 '<br><h4>Berekening</h4>' +
-'<p>Voor alle drie de variabelen worden de inkomsten dan wel uitgaven met de nieuw ingevoerde waarden, vermindert met de inkomsten dan wel uitgaven als alle variabelen, behalve de betreffende, de nieuwe waarden aannemen. Het jaar waar deze berekening voor wordt gemaakt is te zien in de menubalk.</p>' +
+'<p>Voor alle drie de variabelen worden de inkomsten dan wel uitgaven met de nieuw ingevoerde waarden, verminderd met de inkomsten dan wel uitgaven als alle variabelen, behalve de betreffende, de nieuwe waarden aannemen. Het jaar waar deze berekening voor wordt gemaakt is te zien in de menubalk.</p>' +
 '<br><h4>Gebruik</h4>' +
 '<p>Wanneer u op één van de drie vlakken in de grafiek klikt, verschijnt boven de balk(en) de waarde van de verandering. De bijbehorende eenheid wordt weergegeven op de y-as. Wanneer u opnieuw op hetzelfde vlak klikt, verdwijnen deze waarden.</p>' +
 '<p>Het jaartal waarvoor de contributie wordt weergegeven is te zien in de menubalk.</p>'
